@@ -1,6 +1,5 @@
 import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
 import { MixerHorizontalIcon } from '@radix-ui/react-icons'
-import { Table } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -9,14 +8,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu'
-import { FriendCollectTask, friendCollectTaskFieldMap } from '../data/schema'
-
-interface DataTableViewOptionsProps<TData> {
-  table: Table<TData>
-}
+import { DataTableViewOptionsProps } from '@/components/data-table'
 
 export function DataTableViewOptions<TData>({
   table,
+  fieldMap,
 }: DataTableViewOptionsProps<TData>) {
   return (
     <DropdownMenu>
@@ -46,7 +42,7 @@ export function DataTableViewOptions<TData>({
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {friendCollectTaskFieldMap[column.id as keyof FriendCollectTask] || column.id}
+                {fieldMap[column.id as keyof TData] || column.id}
               </DropdownMenuCheckboxItem>
             )
           })}

@@ -31,7 +31,8 @@ export interface DataTableToolbarProps<TData> {
 // 表格列显示选项组件Props
 export interface DataTableViewOptionsProps<TData> {
     table: ReactTable<TData>
-  }
+    fieldMap: Record<keyof TData, string>
+}
 
 interface DataTableProps<T> {
     columns: ColumnDef<T>[]

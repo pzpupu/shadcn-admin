@@ -82,7 +82,7 @@ export const sidebarData: SidebarData = {
       items: [
         {
           title: '私信模板',
-          url: '/material/message',
+          url: '/material/message-template',
           icon: IconMessage2Minus,
         },
       ],

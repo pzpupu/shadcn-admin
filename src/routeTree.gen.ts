@@ -37,11 +37,18 @@ import { Route as AuthenticatedSettingsDisplayImport } from './routes/_authentic
 import { Route as AuthenticatedSettingsAppearanceImport } from './routes/_authenticated/settings/appearance'
 import { Route as AuthenticatedSettingsAccountImport } from './routes/_authenticated/settings/account'
 import { Route as AuthenticatedTiktokFriendIndexImport } from './routes/_authenticated/tiktok/friend/index'
-import { Route as AuthenticatedTaskFriendMessageIndexImport } from './routes/_authenticated/task/friend-message/index'
-import { Route as AuthenticatedTaskFriendCollectIndexImport } from './routes/_authenticated/task/friend-collect/index'
 
 // Create Virtual Routes
 
+const AuthenticatedTaskFriendMessageIndexLazyImport = createFileRoute(
+  '/_authenticated/task/friend-message/',
+)()
+const AuthenticatedTaskFriendCollectIndexLazyImport = createFileRoute(
+  '/_authenticated/task/friend-collect/',
+)()
+const AuthenticatedMaterialMessageTemplateIndexLazyImport = createFileRoute(
+  '/_authenticated/material/message-template/',
+)()
 const AuthenticatedAccountListIndexLazyImport = createFileRoute(
   '/_authenticated/account/list/',
 )()
@@ -197,6 +204,39 @@ const AuthenticatedSettingsAccountRoute =
     getParentRoute: () => AuthenticatedSettingsRouteRoute,
   } as any)
 
+const AuthenticatedTaskFriendMessageIndexLazyRoute =
+  AuthenticatedTaskFriendMessageIndexLazyImport.update({
+    id: '/task/friend-message/',
+    path: '/task/friend-message/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/task/friend-message/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedTaskFriendCollectIndexLazyRoute =
+  AuthenticatedTaskFriendCollectIndexLazyImport.update({
+    id: '/task/friend-collect/',
+    path: '/task/friend-collect/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/task/friend-collect/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedMaterialMessageTemplateIndexLazyRoute =
+  AuthenticatedMaterialMessageTemplateIndexLazyImport.update({
+    id: '/material/message-template/',
+    path: '/material/message-template/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/material/message-template/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AuthenticatedAccountListIndexLazyRoute =
   AuthenticatedAccountListIndexLazyImport.update({
     id: '/account/list/',
@@ -223,20 +263,6 @@ const AuthenticatedTiktokFriendIndexRoute =
   AuthenticatedTiktokFriendIndexImport.update({
     id: '/tiktok/friend/',
     path: '/tiktok/friend/',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-
-const AuthenticatedTaskFriendMessageIndexRoute =
-  AuthenticatedTaskFriendMessageIndexImport.update({
-    id: '/task/friend-message/',
-    path: '/task/friend-message/',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-
-const AuthenticatedTaskFriendCollectIndexRoute =
-  AuthenticatedTaskFriendCollectIndexImport.update({
-    id: '/task/friend-collect/',
-    path: '/task/friend-collect/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
@@ -405,20 +431,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUsersIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
-    '/_authenticated/task/friend-collect/': {
-      id: '/_authenticated/task/friend-collect/'
-      path: '/task/friend-collect'
-      fullPath: '/task/friend-collect'
-      preLoaderRoute: typeof AuthenticatedTaskFriendCollectIndexImport
-      parentRoute: typeof AuthenticatedRouteImport
-    }
-    '/_authenticated/task/friend-message/': {
-      id: '/_authenticated/task/friend-message/'
-      path: '/task/friend-message'
-      fullPath: '/task/friend-message'
-      preLoaderRoute: typeof AuthenticatedTaskFriendMessageIndexImport
-      parentRoute: typeof AuthenticatedRouteImport
-    }
     '/_authenticated/tiktok/friend/': {
       id: '/_authenticated/tiktok/friend/'
       path: '/tiktok/friend'
@@ -438,6 +450,27 @@ declare module '@tanstack/react-router' {
       path: '/account/list'
       fullPath: '/account/list'
       preLoaderRoute: typeof AuthenticatedAccountListIndexLazyImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/material/message-template/': {
+      id: '/_authenticated/material/message-template/'
+      path: '/material/message-template'
+      fullPath: '/material/message-template'
+      preLoaderRoute: typeof AuthenticatedMaterialMessageTemplateIndexLazyImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/task/friend-collect/': {
+      id: '/_authenticated/task/friend-collect/'
+      path: '/task/friend-collect'
+      fullPath: '/task/friend-collect'
+      preLoaderRoute: typeof AuthenticatedTaskFriendCollectIndexLazyImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/task/friend-message/': {
+      id: '/_authenticated/task/friend-message/'
+      path: '/task/friend-message'
+      fullPath: '/task/friend-message'
+      preLoaderRoute: typeof AuthenticatedTaskFriendMessageIndexLazyImport
       parentRoute: typeof AuthenticatedRouteImport
     }
   }
@@ -476,11 +509,12 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
-  AuthenticatedTaskFriendCollectIndexRoute: typeof AuthenticatedTaskFriendCollectIndexRoute
-  AuthenticatedTaskFriendMessageIndexRoute: typeof AuthenticatedTaskFriendMessageIndexRoute
   AuthenticatedTiktokFriendIndexRoute: typeof AuthenticatedTiktokFriendIndexRoute
   AuthenticatedAccountGroupsIndexLazyRoute: typeof AuthenticatedAccountGroupsIndexLazyRoute
   AuthenticatedAccountListIndexLazyRoute: typeof AuthenticatedAccountListIndexLazyRoute
+  AuthenticatedMaterialMessageTemplateIndexLazyRoute: typeof AuthenticatedMaterialMessageTemplateIndexLazyRoute
+  AuthenticatedTaskFriendCollectIndexLazyRoute: typeof AuthenticatedTaskFriendCollectIndexLazyRoute
+  AuthenticatedTaskFriendMessageIndexLazyRoute: typeof AuthenticatedTaskFriendMessageIndexLazyRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -491,15 +525,17 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
-  AuthenticatedTaskFriendCollectIndexRoute:
-    AuthenticatedTaskFriendCollectIndexRoute,
-  AuthenticatedTaskFriendMessageIndexRoute:
-    AuthenticatedTaskFriendMessageIndexRoute,
   AuthenticatedTiktokFriendIndexRoute: AuthenticatedTiktokFriendIndexRoute,
   AuthenticatedAccountGroupsIndexLazyRoute:
     AuthenticatedAccountGroupsIndexLazyRoute,
   AuthenticatedAccountListIndexLazyRoute:
     AuthenticatedAccountListIndexLazyRoute,
+  AuthenticatedMaterialMessageTemplateIndexLazyRoute:
+    AuthenticatedMaterialMessageTemplateIndexLazyRoute,
+  AuthenticatedTaskFriendCollectIndexLazyRoute:
+    AuthenticatedTaskFriendCollectIndexLazyRoute,
+  AuthenticatedTaskFriendMessageIndexLazyRoute:
+    AuthenticatedTaskFriendMessageIndexLazyRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -529,11 +565,12 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
-  '/task/friend-collect': typeof AuthenticatedTaskFriendCollectIndexRoute
-  '/task/friend-message': typeof AuthenticatedTaskFriendMessageIndexRoute
   '/tiktok/friend': typeof AuthenticatedTiktokFriendIndexRoute
   '/account/groups': typeof AuthenticatedAccountGroupsIndexLazyRoute
   '/account/list': typeof AuthenticatedAccountListIndexLazyRoute
+  '/material/message-template': typeof AuthenticatedMaterialMessageTemplateIndexLazyRoute
+  '/task/friend-collect': typeof AuthenticatedTaskFriendCollectIndexLazyRoute
+  '/task/friend-message': typeof AuthenticatedTaskFriendMessageIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -558,11 +595,12 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
-  '/task/friend-collect': typeof AuthenticatedTaskFriendCollectIndexRoute
-  '/task/friend-message': typeof AuthenticatedTaskFriendMessageIndexRoute
   '/tiktok/friend': typeof AuthenticatedTiktokFriendIndexRoute
   '/account/groups': typeof AuthenticatedAccountGroupsIndexLazyRoute
   '/account/list': typeof AuthenticatedAccountListIndexLazyRoute
+  '/material/message-template': typeof AuthenticatedMaterialMessageTemplateIndexLazyRoute
+  '/task/friend-collect': typeof AuthenticatedTaskFriendCollectIndexLazyRoute
+  '/task/friend-message': typeof AuthenticatedTaskFriendMessageIndexLazyRoute
 }
 
 export interface FileRoutesById {
@@ -590,11 +628,12 @@ export interface FileRoutesById {
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
-  '/_authenticated/task/friend-collect/': typeof AuthenticatedTaskFriendCollectIndexRoute
-  '/_authenticated/task/friend-message/': typeof AuthenticatedTaskFriendMessageIndexRoute
   '/_authenticated/tiktok/friend/': typeof AuthenticatedTiktokFriendIndexRoute
   '/_authenticated/account/groups/': typeof AuthenticatedAccountGroupsIndexLazyRoute
   '/_authenticated/account/list/': typeof AuthenticatedAccountListIndexLazyRoute
+  '/_authenticated/material/message-template/': typeof AuthenticatedMaterialMessageTemplateIndexLazyRoute
+  '/_authenticated/task/friend-collect/': typeof AuthenticatedTaskFriendCollectIndexLazyRoute
+  '/_authenticated/task/friend-message/': typeof AuthenticatedTaskFriendMessageIndexLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -623,11 +662,12 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/tasks'
     | '/users'
-    | '/task/friend-collect'
-    | '/task/friend-message'
     | '/tiktok/friend'
     | '/account/groups'
     | '/account/list'
+    | '/material/message-template'
+    | '/task/friend-collect'
+    | '/task/friend-message'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/forgot-password'
@@ -651,11 +691,12 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/users'
-    | '/task/friend-collect'
-    | '/task/friend-message'
     | '/tiktok/friend'
     | '/account/groups'
     | '/account/list'
+    | '/material/message-template'
+    | '/task/friend-collect'
+    | '/task/friend-message'
   id:
     | '__root__'
     | '/_authenticated'
@@ -681,11 +722,12 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
-    | '/_authenticated/task/friend-collect/'
-    | '/_authenticated/task/friend-message/'
     | '/_authenticated/tiktok/friend/'
     | '/_authenticated/account/groups/'
     | '/_authenticated/account/list/'
+    | '/_authenticated/material/message-template/'
+    | '/_authenticated/task/friend-collect/'
+    | '/_authenticated/task/friend-message/'
   fileRoutesById: FileRoutesById
 }
 
@@ -750,11 +792,12 @@ export const routeTree = rootRoute
         "/_authenticated/help-center/",
         "/_authenticated/tasks/",
         "/_authenticated/users/",
-        "/_authenticated/task/friend-collect/",
-        "/_authenticated/task/friend-message/",
         "/_authenticated/tiktok/friend/",
         "/_authenticated/account/groups/",
-        "/_authenticated/account/list/"
+        "/_authenticated/account/list/",
+        "/_authenticated/material/message-template/",
+        "/_authenticated/task/friend-collect/",
+        "/_authenticated/task/friend-message/"
       ]
     },
     "/_authenticated/settings": {
@@ -842,14 +885,6 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/users/index.tsx",
       "parent": "/_authenticated"
     },
-    "/_authenticated/task/friend-collect/": {
-      "filePath": "_authenticated/task/friend-collect/index.tsx",
-      "parent": "/_authenticated"
-    },
-    "/_authenticated/task/friend-message/": {
-      "filePath": "_authenticated/task/friend-message/index.tsx",
-      "parent": "/_authenticated"
-    },
     "/_authenticated/tiktok/friend/": {
       "filePath": "_authenticated/tiktok/friend/index.tsx",
       "parent": "/_authenticated"
@@ -860,6 +895,18 @@ export const routeTree = rootRoute
     },
     "/_authenticated/account/list/": {
       "filePath": "_authenticated/account/list/index.lazy.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/material/message-template/": {
+      "filePath": "_authenticated/material/message-template/index.lazy.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/task/friend-collect/": {
+      "filePath": "_authenticated/task/friend-collect/index.lazy.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/task/friend-message/": {
+      "filePath": "_authenticated/task/friend-message/index.lazy.tsx",
       "parent": "/_authenticated"
     }
   }
