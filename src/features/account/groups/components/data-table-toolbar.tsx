@@ -1,10 +1,13 @@
 import { Table } from '@tanstack/react-table'
-import { X } from 'lucide-react'
+import { RefreshCcw, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { DataTableViewOptions } from './data-table-view-options'
 import { AccountGroup, AccountGroupRegions } from '../data/schema'
 import { DataTableFacetedFilter } from '@/components/data-table/data-table-faceted-filter'
+import { accountGroupService } from '@/services/account-group-service'
+import { useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
 
 
 interface DataTableToolbarProps<TData> {
@@ -15,6 +18,8 @@ export function DataTableToolbar<TData extends AccountGroup>({
   table,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
+  const queryClient = useQueryClient()
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
   return (
     <div className="flex items-center justify-between">
@@ -27,7 +32,7 @@ export function DataTableToolbar<TData extends AccountGroup>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        {/* 地区筛选器 */}  
+        {/* 地区筛选器 */}
         {table.getColumn('region') && (
           <DataTableFacetedFilter
             column={table.getColumn('region')}
@@ -38,7 +43,7 @@ export function DataTableToolbar<TData extends AccountGroup>({
             }))}
           />
         )}
-        
+
         {/* 清除筛选条件按钮 */}
         {isFiltered && (
           <Button
@@ -51,8 +56,26 @@ export function DataTableToolbar<TData extends AccountGroup>({
           </Button>
         )}
       </div>
-      {/* 列显示选项 */}
-      <DataTableViewOptions table={table} />
+      <div className="flex items-center gap-2">
+        {/* 列显示选项 */}
+        <DataTableViewOptions table={table} />
+        {/* 刷新 */}
+        <Button
+          variant="outline"
+          size="sm"
+          className="h-8"
+          onClick={() => {
+            setIsRefreshing(true)
+            queryClient.invalidateQueries({ queryKey: [accountGroupService.path] })
+              .finally(() => {
+                setIsRefreshing(false)
+              })
+          }}
+          disabled={isRefreshing}
+        >
+          {isRefreshing ? <RefreshCcw className='h-4 w-4 animate-spin' /> : <RefreshCcw className='h-4 w-4' />}
+        </Button>
+      </div>
     </div>
   )
 } 

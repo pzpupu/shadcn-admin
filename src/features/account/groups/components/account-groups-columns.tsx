@@ -89,7 +89,13 @@ export const columns: ColumnDef<AccountGroup>[] = [
   {
     accessorKey: 'updatedAt',
     header: ({ column }) => <DataTableColumnHeader column={column} title={accountGroupFieldMap.updatedAt} />,
-    cell: ({ row }) => format(row.getValue('updatedAt'), 'yyyy-MM-dd HH:mm:ss'),
+    cell: ({ row }) => {
+      const updatedAt: Date | undefined = row.getValue('updatedAt')
+      if (updatedAt) {
+        return format(updatedAt, 'yyyy-MM-dd HH:mm:ss')
+      }
+      return '-'
+    },
   },
   {
     id: 'actions',

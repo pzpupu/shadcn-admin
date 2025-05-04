@@ -66,6 +66,16 @@ export const sidebarData: SidebarData = {
       ],
     },
     {
+      title: '数据',
+      items: [
+        {
+          title: '好友列表',
+          url: '/tiktok/friend',
+          icon: IconFriends,
+        },
+      ],
+    },
+    {
       title: '任务',
       items: [
         {
@@ -77,16 +87,6 @@ export const sidebarData: SidebarData = {
           title: '好友私信',
           url: '/task/friend-message',
           icon: IconMessageCircle,
-        },
-      ],
-    },
-    {
-      title: '数据',
-      items: [
-        {
-          title: '好友列表',
-          url: '/tiktok/friend',
-          icon: IconFriends,
         },
       ],
     },

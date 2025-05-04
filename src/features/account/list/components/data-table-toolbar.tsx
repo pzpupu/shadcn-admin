@@ -1,4 +1,4 @@
-import { X } from 'lucide-react'
+import { X, RefreshCcw, Trash } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -7,6 +7,9 @@ import { accountFieldMap, AccountStatus } from '../data/schema'
 import { DataTableToolbarProps } from '@/components/data-table'
 import { DataTableFacetedFilter } from '@/components/data-table/data-table-faceted-filter'
 import { DataTableGroupFilter } from './data-table-group-filter'
+import { useQueryClient } from '@tanstack/react-query'
+import { accountService } from '@/services/account-services'
+import { useState } from 'react'
 
 // 表格工具栏组件实现
 export function DataTableToolbar<TData>({
@@ -14,6 +17,15 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const selectedAccounts = table.getFilteredSelectedRowModel().flatRows.map((row) => row.original)
+  const queryClient = useQueryClient()
+  const [isRefreshing, setIsRefreshing] = useState(false)
+  const refresh = () => {
+    setIsRefreshing(true)
+    queryClient.invalidateQueries({ queryKey: [accountService.path] })
+      .finally(() => {
+        setIsRefreshing(false)
+      })
+  }
 
   return (
     <div className='flex items-end-safe justify-between'>
@@ -57,9 +69,18 @@ export function DataTableToolbar<TData>({
           }}
           className='h-8'
         >
-          删除 ({selectedAccounts.length})
+          <Trash className='h-4 w-4' />
         </Button>
         <DataTableViewOptions table={table} />
+        <Button
+          variant='outline'
+          size='sm'
+          className='h-8'
+          onClick={refresh}
+          disabled={isRefreshing}
+        >
+          {isRefreshing ? <RefreshCcw className='h-4 w-4 animate-spin' /> : <RefreshCcw className='h-4 w-4' />}
+        </Button>
       </div>
 
     </div>

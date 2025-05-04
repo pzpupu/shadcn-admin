@@ -44,8 +44,6 @@ export function DataTableGroupFilter<TData, TValue>({
     // placeholderData: keepPreviousData,
   })
 
-  console.log("DataTableGroupFilter: ", Object.keys(selectedOptions).length, isLoading, rest)
-
   useEffect(() => {
     if (!selectedValues) {
       setSelectedOptions({})
@@ -97,7 +95,6 @@ export function DataTableGroupFilter<TData, TValue>({
             <CommandGroup>
               {options?.map((option) => {
                 const isSelected = selectedOptions[option.value]
-                console.log("map: ", option)
                 return (
                   <CommandItem
                     value={option.value}
