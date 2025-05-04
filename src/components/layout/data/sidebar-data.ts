@@ -79,8 +79,8 @@ export const sidebarData: SidebarData = {
       title: '任务',
       items: [
         {
-          title: '粉丝采集',
-          url: '/task/follower-collect',
+          title: '好友采集',
+          url: '/task/friend-collect',
           icon: IconPasswordUser,
         },
         {

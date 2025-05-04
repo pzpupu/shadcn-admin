@@ -1,5 +1,5 @@
 import { accountSchema } from "@/features/account/list/data/schema";
-import { collectFollowerTaskSchema } from "@/features/task/follower-collect/data/schema";
+import { friendCollectTaskSchema } from "@/features/task/friend-collect/data/schema";
 import { z } from "zod";
 
 /**
@@ -7,7 +7,7 @@ import { z } from "zod";
  */
 export const tiktokFriendSchema = z.object({
   id: z.number(),
-  task: collectFollowerTaskSchema,
+  task: friendCollectTaskSchema,
   account: accountSchema,
   uid: z.string(),
   secUid: z.string(),

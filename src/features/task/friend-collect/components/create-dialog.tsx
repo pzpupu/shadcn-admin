@@ -22,8 +22,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useDataTableContext } from '@/components/data-table/data-table-context'
-import { followerCollectService } from '@/services/follower-collect-service'
-import { CreateCollectFollowerTaskInput, createCollectFollowerTaskSchema } from '../data/schema'
+import { friendCollectService } from '@/services/froemd-collect-service'
+import { CreateFriendCollectTaskInput, createFriendCollectTaskSchema } from '../data/schema'
 import { Popover, PopoverTrigger } from '@radix-ui/react-popover'
 import { cn } from '@/lib/utils'
 import { accountGroupService } from '@/services/account-group-service'
@@ -32,7 +32,7 @@ import { PopoverContent } from '@/components/ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { useState } from 'react'
 
-export function FollowerCollectTaskCreateDialog() {
+export function FriendCollectTaskCreateDialog() {
   const { open, setOpen, current, setCurrent } = useDataTableContext()
   const [searchTerm, setSearchTerm] = useState<string>('')
 
@@ -41,20 +41,20 @@ export function FollowerCollectTaskCreateDialog() {
 
   // 创建和更新的mutation hooks
   const createMutation = useMutation({
-    mutationFn: (data: CreateCollectFollowerTaskInput) => followerCollectService.create(data),
+    mutationFn: (data: CreateFriendCollectTaskInput) => friendCollectService.create(data),
     onSuccess: () => {
-      toast.success('粉丝采集任务创建成功', { duration: 2000 })
-      queryClient.invalidateQueries({ queryKey: [followerCollectService.path] })
+      toast.success('好友采集任务创建成功', { duration: 2000 })
+      queryClient.invalidateQueries({ queryKey: [friendCollectService.path] })
     },
     onError: (error) => {
-      console.error('创建粉丝采集任务失败:', error)
-      toast.error('创建粉丝采集任务失败')
+      console.error('创建好友采集任务失败:', error)
+      toast.error('创建好友采集任务失败')
     },
   })
 
   // 表单实例
-  const form = useForm<CreateCollectFollowerTaskInput>({
-    resolver: zodResolver(createCollectFollowerTaskSchema),
+  const form = useForm<CreateFriendCollectTaskInput>({
+    resolver: zodResolver(createFriendCollectTaskSchema),
     defaultValues: {
       name: current?.name || '',
       description: current?.description || '',
@@ -69,7 +69,7 @@ export function FollowerCollectTaskCreateDialog() {
   })
 
   // 提交表单
-  const onSubmit = (data: CreateCollectFollowerTaskInput) => {
+  const onSubmit = (data: CreateFriendCollectTaskInput) => {
     createMutation.mutate(data, {
         onSuccess: () => {
           setOpen(null)

@@ -1,12 +1,12 @@
 import { accountGroupSchema } from "@/features/account/groups/data/schema";
-import { taskStatusEnum, taskStatusSchema } from "@/types/task-status";
+import { taskStatusEnum } from "@/types/task-status";
 import { z } from "zod";
 
 
 /**
  * 粉丝采集任务类型
  */
-export const collectFollowerTaskSchema = z.object({
+export const friendCollectTaskSchema = z.object({
   id: z.number(),
   name: z.string(),
   description: z.string(),
@@ -20,10 +20,10 @@ export const collectFollowerTaskSchema = z.object({
   createdBy: z.number(),
   modifiedBy: z.number(),
 })
-export type CollectFollowerTask = z.infer<typeof collectFollowerTaskSchema>;
+export type FriendCollectTask = z.infer<typeof friendCollectTaskSchema>;
 
 // 粉丝采集任务字段名称映射
-export const collectFollowerTaskFieldMap: Record<keyof CollectFollowerTask, string> = {
+export const friendCollectTaskFieldMap: Record<keyof FriendCollectTask, string> = {
   id: "ID",
   name: "任务名称",
   description: "任务描述",
@@ -39,15 +39,15 @@ export const collectFollowerTaskFieldMap: Record<keyof CollectFollowerTask, stri
 }
 
 /**
- * 创建粉丝采集任务表单验证
+ * 创建好友采集任务表单验证
  */
-export const createCollectFollowerTaskSchema = z.object({
+export const createFriendCollectTaskSchema = z.object({
   name: z.string().min(1, "任务名称不能为空").max(100, "任务名称最多100个字符"),
   description: z.string().max(500, "任务描述最多500个字符").optional(),
   groupId: z.string({ required_error: "请选择账号组" })
 });
 
 /**
- * 创建粉丝采集任务表单类型
+ * 创建好友采集任务表单类型 
  */
-export type CreateCollectFollowerTaskInput = z.infer<typeof createCollectFollowerTaskSchema>; 
+export type CreateFriendCollectTaskInput = z.infer<typeof createFriendCollectTaskSchema>; 

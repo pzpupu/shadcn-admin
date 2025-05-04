@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { useDataTableContext } from '@/components/data-table/data-table-context'
 
 // 粉丝采集任务列表主操作按钮组件实现
-export function FollowerCollectPrimaryButtons() {
+export function FriendCollectPrimaryButtons() {
   const { setOpen } = useDataTableContext()
 
   return (

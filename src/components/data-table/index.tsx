@@ -28,6 +28,11 @@ export interface DataTableToolbarProps<TData> {
     table: ReactTable<TData>
 }
 
+// 表格列显示选项组件Props
+export interface DataTableViewOptionsProps<TData> {
+    table: ReactTable<TData>
+  }
+
 interface DataTableProps<T> {
     columns: ColumnDef<T>[]
     service: BaseCrudService<T>

@@ -38,7 +38,7 @@ import { Route as AuthenticatedSettingsAppearanceImport } from './routes/_authen
 import { Route as AuthenticatedSettingsAccountImport } from './routes/_authenticated/settings/account'
 import { Route as AuthenticatedTiktokFriendIndexImport } from './routes/_authenticated/tiktok/friend/index'
 import { Route as AuthenticatedTaskFriendMessageIndexImport } from './routes/_authenticated/task/friend-message/index'
-import { Route as AuthenticatedTaskFollowerCollectIndexImport } from './routes/_authenticated/task/follower-collect/index'
+import { Route as AuthenticatedTaskFriendCollectIndexImport } from './routes/_authenticated/task/friend-collect/index'
 
 // Create Virtual Routes
 
@@ -233,10 +233,10 @@ const AuthenticatedTaskFriendMessageIndexRoute =
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
-const AuthenticatedTaskFollowerCollectIndexRoute =
-  AuthenticatedTaskFollowerCollectIndexImport.update({
-    id: '/task/follower-collect/',
-    path: '/task/follower-collect/',
+const AuthenticatedTaskFriendCollectIndexRoute =
+  AuthenticatedTaskFriendCollectIndexImport.update({
+    id: '/task/friend-collect/',
+    path: '/task/friend-collect/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
@@ -405,11 +405,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUsersIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
-    '/_authenticated/task/follower-collect/': {
-      id: '/_authenticated/task/follower-collect/'
-      path: '/task/follower-collect'
-      fullPath: '/task/follower-collect'
-      preLoaderRoute: typeof AuthenticatedTaskFollowerCollectIndexImport
+    '/_authenticated/task/friend-collect/': {
+      id: '/_authenticated/task/friend-collect/'
+      path: '/task/friend-collect'
+      fullPath: '/task/friend-collect'
+      preLoaderRoute: typeof AuthenticatedTaskFriendCollectIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
     '/_authenticated/task/friend-message/': {
@@ -476,7 +476,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
-  AuthenticatedTaskFollowerCollectIndexRoute: typeof AuthenticatedTaskFollowerCollectIndexRoute
+  AuthenticatedTaskFriendCollectIndexRoute: typeof AuthenticatedTaskFriendCollectIndexRoute
   AuthenticatedTaskFriendMessageIndexRoute: typeof AuthenticatedTaskFriendMessageIndexRoute
   AuthenticatedTiktokFriendIndexRoute: typeof AuthenticatedTiktokFriendIndexRoute
   AuthenticatedAccountGroupsIndexLazyRoute: typeof AuthenticatedAccountGroupsIndexLazyRoute
@@ -491,8 +491,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
-  AuthenticatedTaskFollowerCollectIndexRoute:
-    AuthenticatedTaskFollowerCollectIndexRoute,
+  AuthenticatedTaskFriendCollectIndexRoute:
+    AuthenticatedTaskFriendCollectIndexRoute,
   AuthenticatedTaskFriendMessageIndexRoute:
     AuthenticatedTaskFriendMessageIndexRoute,
   AuthenticatedTiktokFriendIndexRoute: AuthenticatedTiktokFriendIndexRoute,
@@ -529,7 +529,7 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
-  '/task/follower-collect': typeof AuthenticatedTaskFollowerCollectIndexRoute
+  '/task/friend-collect': typeof AuthenticatedTaskFriendCollectIndexRoute
   '/task/friend-message': typeof AuthenticatedTaskFriendMessageIndexRoute
   '/tiktok/friend': typeof AuthenticatedTiktokFriendIndexRoute
   '/account/groups': typeof AuthenticatedAccountGroupsIndexLazyRoute
@@ -558,7 +558,7 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
-  '/task/follower-collect': typeof AuthenticatedTaskFollowerCollectIndexRoute
+  '/task/friend-collect': typeof AuthenticatedTaskFriendCollectIndexRoute
   '/task/friend-message': typeof AuthenticatedTaskFriendMessageIndexRoute
   '/tiktok/friend': typeof AuthenticatedTiktokFriendIndexRoute
   '/account/groups': typeof AuthenticatedAccountGroupsIndexLazyRoute
@@ -590,7 +590,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
-  '/_authenticated/task/follower-collect/': typeof AuthenticatedTaskFollowerCollectIndexRoute
+  '/_authenticated/task/friend-collect/': typeof AuthenticatedTaskFriendCollectIndexRoute
   '/_authenticated/task/friend-message/': typeof AuthenticatedTaskFriendMessageIndexRoute
   '/_authenticated/tiktok/friend/': typeof AuthenticatedTiktokFriendIndexRoute
   '/_authenticated/account/groups/': typeof AuthenticatedAccountGroupsIndexLazyRoute
@@ -623,7 +623,7 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/tasks'
     | '/users'
-    | '/task/follower-collect'
+    | '/task/friend-collect'
     | '/task/friend-message'
     | '/tiktok/friend'
     | '/account/groups'
@@ -651,7 +651,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/users'
-    | '/task/follower-collect'
+    | '/task/friend-collect'
     | '/task/friend-message'
     | '/tiktok/friend'
     | '/account/groups'
@@ -681,7 +681,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
-    | '/_authenticated/task/follower-collect/'
+    | '/_authenticated/task/friend-collect/'
     | '/_authenticated/task/friend-message/'
     | '/_authenticated/tiktok/friend/'
     | '/_authenticated/account/groups/'
@@ -750,7 +750,7 @@ export const routeTree = rootRoute
         "/_authenticated/help-center/",
         "/_authenticated/tasks/",
         "/_authenticated/users/",
-        "/_authenticated/task/follower-collect/",
+        "/_authenticated/task/friend-collect/",
         "/_authenticated/task/friend-message/",
         "/_authenticated/tiktok/friend/",
         "/_authenticated/account/groups/",
@@ -842,8 +842,8 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/users/index.tsx",
       "parent": "/_authenticated"
     },
-    "/_authenticated/task/follower-collect/": {
-      "filePath": "_authenticated/task/follower-collect/index.tsx",
+    "/_authenticated/task/friend-collect/": {
+      "filePath": "_authenticated/task/friend-collect/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/task/friend-message/": {
