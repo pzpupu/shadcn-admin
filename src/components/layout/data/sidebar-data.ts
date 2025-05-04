@@ -10,6 +10,8 @@ import {
   IconLayoutDashboard,
   IconLock,
   IconLockAccess,
+  IconMessage2Minus,
+  IconMessage2Up,
   IconMessageCircle,
   IconMessages,
   IconNotification,
@@ -76,6 +78,16 @@ export const sidebarData: SidebarData = {
       ],
     },
     {
+      title: '素材',
+      items: [
+        {
+          title: '私信模板',
+          url: '/material/message',
+          icon: IconMessage2Minus,
+        },
+      ],
+    },
+    {
       title: '任务',
       items: [
         {
@@ -86,7 +98,7 @@ export const sidebarData: SidebarData = {
         {
           title: '好友私信',
           url: '/task/friend-message',
-          icon: IconMessageCircle,
+          icon: IconMessage2Up,
         },
       ],
     },
