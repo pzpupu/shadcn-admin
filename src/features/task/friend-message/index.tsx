@@ -4,10 +4,10 @@ import DataTableProvider from "@/components/data-table/data-table-context";
 import { HttpMessageTask } from "./data/schema";
 import { Main } from "@/components/layout/main";
 import { DataTable } from "@/components/data-table";
-import { columns } from "./components/friend-message-task-columns";
+import { columns } from "./components/columns";
 import { httpMessageService } from "@/services/http-message-service";
-import { FriendMessagePrimaryButtons } from "./components/friend-message-task-primary-buttons";
-import { FriendMessageDialogs } from "./components/friend-message-dialogs";
+import { FriendMessagePrimaryButtons } from "./components/primary-buttons";
+import { FriendMessageDialogs } from "./components/dialogs";
 
 type DataTableDialogType = 'create'
 

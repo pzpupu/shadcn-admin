@@ -43,7 +43,10 @@ export const httpMessageTaskFieldMap: Record<keyof HttpMessageTask, string> = {
 export const createHttpMessageTaskSchema = z.object({
   name: z.string().min(1, "任务名称不能为空").max(100, "任务名称最多100个字符"),
   description: z.string().max(500, "任务描述最多500个字符").optional(),
-  groupId: z.string({ required_error: "请选择账号组" })
+  groupId: z.string({ required_error: "请选择账号组" }),
+  templateId: z.string({ required_error: "请选择模板" }),
+  interval: z.number().default(0),
+  regions: z.array(z.string()).default([]),
 });
 
 /**

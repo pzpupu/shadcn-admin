@@ -19,7 +19,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useDataTableContext } from '@/components/data-table/data-table-context'
 import { messageTemplateService } from '@/services/message-template-service'
@@ -29,7 +29,6 @@ import { Textarea } from '@/components/ui/textarea'
 export function MessageTemplateCreateDialog() {
   const { open, setOpen, setCurrent } = useDataTableContext()
   const queryClient = useQueryClient()
-
   // 创建mutation hook
   const createMutation = useMutation({
     mutationFn: (data: CreateMessageTemplateInput) => messageTemplateService.create(data),
@@ -61,7 +60,7 @@ export function MessageTemplateCreateDialog() {
       .split('\n')
       .map(line => line.trim())
       .filter(line => line.length > 0);
-    debugger;
+
     if (contentLines.length === 0) {
       form.setError('contents', { 
         type: 'manual',

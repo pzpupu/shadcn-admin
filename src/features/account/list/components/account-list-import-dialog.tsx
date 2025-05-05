@@ -3,7 +3,7 @@ import { useAccountListContext } from '../context/account-list-context'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { ImportAccountsInput, importAccountsSchema } from '../data/schema'
-import { accountService, ImportResult } from '@/services/account-services'
+import { accountService } from '@/services/account-services'
 import { accountGroupService } from '@/services/account-group-service'
 
 import {

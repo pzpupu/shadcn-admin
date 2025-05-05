@@ -31,10 +31,13 @@ import { Check, ChevronsUpDown } from 'lucide-react'
 import { PopoverContent } from '@/components/ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { useState } from 'react'
+import { messageTemplateService } from '@/services/message-template-service'
+import MultipleRegionSelect from '@/components/select/multiple-region-select'
 
 export function FriendMessageTaskCreateDialog() {
-  const { open, setOpen, current, setCurrent } = useDataTableContext()
+  const { open, setOpen } = useDataTableContext()
   const [searchTerm, setSearchTerm] = useState<string>('')
+  const [templateSearchTerm, setTemplateSearchTerm] = useState<string>('')
 
   const queryClient = useQueryClient()
 
@@ -55,15 +58,19 @@ export function FriendMessageTaskCreateDialog() {
   const form = useForm<CreateHttpMessageTaskInput>({
     resolver: zodResolver(createHttpMessageTaskSchema),
     defaultValues: {
-      name: current?.name || '',
-      description: current?.description || '',
-      groupId: current?.groupId || undefined,
+      interval: 0,
     },
   })
 
   const { data: groupOptions } = useQuery({
     queryKey: [`${accountGroupService.path}/options`, searchTerm],
     queryFn: () => accountGroupService.getOptions(searchTerm),
+    placeholderData: keepPreviousData,
+  })
+
+  const { data: templateOptions } = useQuery({
+    queryKey: [`${messageTemplateService.path}/options`, templateSearchTerm],
+    queryFn: () => messageTemplateService.getOptions(templateSearchTerm),
     placeholderData: keepPreviousData,
   })
 
@@ -79,7 +86,6 @@ export function FriendMessageTaskCreateDialog() {
 
   // 关闭对话框
   const onClose = () => {
-    setCurrent(null)
     setOpen(null)
     form.reset()
   }
@@ -145,7 +151,7 @@ export function FriendMessageTaskCreateDialog() {
                           variant="outline"
                           role="combobox"
                           className={cn(
-                            "w-full justify-between",
+                            "w-full justify-between font-normal",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -158,7 +164,7 @@ export function FriendMessageTaskCreateDialog() {
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
+                    <PopoverContent className="p-0">
                       <Command shouldFilter={false}>
                         <CommandInput placeholder="搜索账号组..." onValueChange={setSearchTerm} />
                         <CommandList>
@@ -188,6 +194,99 @@ export function FriendMessageTaskCreateDialog() {
                       </Command>
                     </PopoverContent>
                   </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+             {/* 模板选择 */}
+             <FormField
+              control={form.control}
+              name='templateId'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>私信模板</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            "w-full justify-between font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value
+                            ? templateOptions?.find(
+                              (item) => item.value === field.value
+                            )?.label
+                            : "选择私信模板"}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-0">
+                      <Command shouldFilter={false}>
+                        <CommandInput placeholder="搜索私信模板..." onValueChange={setSearchTerm} />
+                        <CommandList>
+                          <CommandEmpty>未能找到私信模板</CommandEmpty>
+                          <CommandGroup>
+                            {groupOptions?.map((item) => (
+                              <CommandItem
+                                value={item.value}
+                                key={item.value}
+                                onSelect={() => {
+                                  form.setValue("templateId", item.value)
+                                }}
+                              >
+                                {item.label}
+                                <Check
+                                  className={cn(
+                                    "ml-auto",
+                                    item.value === field.value
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  )}
+                                />
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* 发送消息间隔时间 */}
+            <FormField
+              control={form.control}
+              name='interval'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>发送消息间隔时间</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="输入发送消息间隔时间" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+             {/* 地区字段 */}
+             <FormField
+              control={form.control}
+              name="regions"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>地区</FormLabel>
+                  <MultipleRegionSelect
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  />
                   <FormMessage />
                 </FormItem>
               )}

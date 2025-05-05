@@ -36,6 +36,7 @@ import {
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { accountGroupService } from '@/services/account-group-service'
 import { toast } from 'sonner'
+import RegionSelect from '@/components/select/region-select'
 
 export function AccountGroupsActionDialog() {
   const { open, setOpen, currentGroup, setCurrentGroup } = useAccountGroupsContext()
@@ -164,23 +165,10 @@ export function AccountGroupsActionDialog() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>地区</FormLabel>
-                  <Select
+                  <RegionSelect
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="选择地区" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {Object.entries(AccountGroupRegions.shape).map(([key, value]) => (
-                        <SelectItem key={key} value={key}>
-                          {value.value}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  />
                   <FormMessage />
                 </FormItem>
               )}

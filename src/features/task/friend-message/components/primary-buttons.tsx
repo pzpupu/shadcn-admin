@@ -1,4 +1,4 @@
-import { MessageCircle } from 'lucide-react'
+import { MessageCircle, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useDataTableContext } from '@/components/data-table/data-table-context'
 
@@ -14,7 +14,7 @@ export function FriendMessagePrimaryButtons() {
         onClick={() => setOpen('create')}
         className='h-8'
       >
-        <MessageCircle className='mr-2 h-4 w-4' />
+        <Upload className='mr-2 h-4 w-4' />
         创建任务
       </Button>
     </div>
