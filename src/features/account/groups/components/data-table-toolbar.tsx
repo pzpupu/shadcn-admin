@@ -3,8 +3,7 @@ import { RefreshCcw, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { DataTableViewOptions } from './data-table-view-options'
-import { AccountGroup, AccountGroupRegions } from '../data/schema'
-import { DataTableFacetedFilter } from '@/components/data-table/data-table-faceted-filter'
+import { AccountGroup } from '../data/schema'
 import { accountGroupService } from '@/services/account-group-service'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -33,7 +32,7 @@ export function DataTableToolbar<TData extends AccountGroup>({
           className="h-8 w-[150px] lg:w-[250px]"
         />
         {/* 地区筛选器 */}
-        {table.getColumn('region') && (
+        {/* {table.getColumn('region') && (
           <DataTableFacetedFilter
             column={table.getColumn('region')}
             title="地区"
@@ -42,7 +41,7 @@ export function DataTableToolbar<TData extends AccountGroup>({
               label: value.value,
             }))}
           />
-        )}
+        )} */}
 
         {/* 清除筛选条件按钮 */}
         {isFiltered && (

@@ -23,7 +23,7 @@ import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tansta
 import { toast } from 'sonner'
 import { useDataTableContext } from '@/components/data-table/data-table-context'
 import { httpMessageService } from '@/services/http-message-service'
-import { CreateHttpMessageTaskInput, createHttpMessageTaskSchema } from '../data/schema'
+import { CreateHttpMessageTaskInput, createHttpMessageTaskSchema, messageSendModeEnum, messageSendModeSchema } from '../data/schema'
 import { Popover, PopoverTrigger } from '@radix-ui/react-popover'
 import { cn } from '@/lib/utils'
 import { accountGroupService } from '@/services/account-group-service'
@@ -33,6 +33,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { useState } from 'react'
 import { messageTemplateService } from '@/services/message-template-service'
 import MultipleRegionSelect from '@/components/select/multiple-region-select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 export function FriendMessageTaskCreateDialog() {
   const { open, setOpen } = useDataTableContext()
@@ -58,7 +59,13 @@ export function FriendMessageTaskCreateDialog() {
   const form = useForm<CreateHttpMessageTaskInput>({
     resolver: zodResolver(createHttpMessageTaskSchema),
     defaultValues: {
-      interval: 0,
+      name: '',
+      description: undefined,
+      groupId: undefined,
+      templateId: undefined,
+      interval: 5,
+      regions: [],
+      sendMode: messageSendModeEnum.Enum.SEND_TO_FRIENDS_WITHOUT_MESSAGE,
     },
   })
 
@@ -269,7 +276,13 @@ export function FriendMessageTaskCreateDialog() {
                 <FormItem>
                   <FormLabel>发送消息间隔时间</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="输入发送消息间隔时间" {...field} />
+                    <Input 
+                      type="number" 
+                      placeholder="输入发送消息间隔时间" 
+                      {...field}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
+                      value={field.value === undefined ? '' : field.value}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -287,6 +300,35 @@ export function FriendMessageTaskCreateDialog() {
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* 发送模式 */}
+            <FormField
+              control={form.control}
+              name="sendMode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>发送模式</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="选择发送模式" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.keys(messageSendModeSchema.shape).map((key) => (
+                          <SelectItem key={key} value={key}>
+                            {messageSendModeSchema.shape[key as keyof typeof messageSendModeSchema.shape].value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

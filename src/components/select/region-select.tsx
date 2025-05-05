@@ -2,16 +2,16 @@ import { useState } from "react"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
-import { regions } from "@/types/region"
+import { regionGroups } from "@/types/region"
 
 export default function RegionSelect({ onValueChange, defaultValue }: { onValueChange: (value: string) => void, defaultValue: string }) {
     const [searchQuery, setSearchQuery] = useState("")
 
     // 过滤每个分组中的水果
-    const filteredRegions = regions
+    const filteredRegions = regionGroups
         .map((group) => ({
             ...group,
-            items: group.options.filter((fruit) => fruit.name.toLowerCase().includes(searchQuery.toLowerCase())),
+            items: group.options.filter((region) => region.code.toLowerCase().includes(searchQuery.toLowerCase()) || region.name.toLowerCase().includes(searchQuery.toLowerCase())),
         }))
         .filter((group) => group.items.length > 0) // 只保留有匹配项的分组
 
@@ -34,7 +34,7 @@ export default function RegionSelect({ onValueChange, defaultValue }: { onValueC
                     <SelectGroup key={region.label}>
                         <SelectLabel>{region.label}</SelectLabel>
                         {region.options.map((option) => (
-                            <SelectItem key={option.code} value={option.code}>{option.name}</SelectItem>
+                            <SelectItem key={option.code} value={option.code}>{option.code}|{option.name}</SelectItem>
                         ))}
                     </SelectGroup>
                 ))}

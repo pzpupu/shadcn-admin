@@ -1,31 +1,35 @@
+
 /**
- * 地区数据
+ * 
+ * 地区分组数据
  */
-export const regions = [
+export type RegionGroup = {
+    label: string
+    options: {
+        code: string
+        name: string
+    }[]
+}
+
+export const regionGroups: RegionGroup[] = [
     {
         label: "热门地区",
         options: [{
-            dict_id: "gj_jc",
             code: "US",
             name: "美国"
         }, {
-            dict_id: "gj_jc",
             code: "JP",
             name: "日本"
         }, {
-            dict_id: "gj_jc",
             code: "KR",
             name: "韩国"
         }, {
-            dict_id: "gj_jc",
             code: "TH",
             name: "泰国"
         }, {
-            dict_id: "gj_jc",
             code: "TW",
             name: "台湾"
         }, {
-            dict_id: "gj_jc",
             code: "BR",
             name: "巴西"
         }]
@@ -33,207 +37,156 @@ export const regions = [
     {
         label: "欧洲地区",
         options: [{
-            dict_id: "gj_jc",
             code: "FR",
             name: "法国"
         }, {
-            dict_id: "gj_jc",
             code: "SE",
             name: "瑞典"
         }, {
-            dict_id: "gj_jc",
             code: "RU",
             name: "俄罗斯"
         }, {
-            dict_id: "gj_jc",
             code: "ES",
             name: "西班牙"
         }, {
-            dict_id: "gj_jc",
             code: "IS",
             name: "冰岛"
         }, {
-            dict_id: "gj_jc",
             code: "GB",
             name: "英国"
         }, {
-            dict_id: "gj_jc",
             code: "IE",
             name: "爱尔兰"
         }, {
-            dict_id: "gj_jc",
             code: "DE",
             name: "德国"
         }, {
-            dict_id: "gj_jc",
             code: "LI",
             name: "列支敦士登"
         }, {
-            dict_id: "gj_jc",
             code: "BG",
             name: "保加利亚"
         }, {
-            dict_id: "gj_jc",
             code: "CH",
             name: "瑞士"
         }, {
-            dict_id: "gj_jc",
             code: "IT",
             name: "意大利"
         }, {
-            dict_id: "gj_jc",
             code: "MT",
             name: "马耳他"
         }, {
-            dict_id: "gj_jc",
             code: "AD",
             name: "安道尔共和国"
         }, {
-            dict_id: "gj_jc",
             code: "EE",
             name: "爱沙尼亚"
         }, {
-            dict_id: "gj_jc",
             code: "GR",
             name: "希腊"
         }, {
-            dict_id: "gj_jc",
             code: "YU",
             name: "南斯拉夫"
         }, {
-            dict_id: "gj_jc",
             code: "LT",
             name: "立陶宛"
         }, {
-            dict_id: "gj_jc",
             code: "SI",
             name: "斯洛文尼亚"
         }, {
-            dict_id: "gj_jc",
             code: "LU",
             name: "卢森堡"
         }, {
-            dict_id: "gj_jc",
             code: "AL",
             name: "阿尔巴尼亚"
         }, {
-            dict_id: "gj_jc",
             code: "SK",
             name: "斯洛伐克"
         }, {
-            dict_id: "gj_jc",
             code: "FI",
             name: "芬兰"
         }, {
-            dict_id: "gj_jc",
             code: "LV",
             name: "拉脱维亚"
         }, {
-            dict_id: "gj_jc",
             code: "TR",
             name: "土耳其"
         }, {
-            dict_id: "gj_jc",
             code: "PL",
             name: "波兰"
         }, {
-            dict_id: "gj_jc",
             code: "SM",
             name: "圣马力诺"
         }, {
-            dict_id: "gj_jc",
             code: "HU",
             name: "匈牙利"
         }, {
-            dict_id: "gj_jc",
             code: "MC",
             name: "摩纳哥"
         }, {
-            dict_id: "gj_jc",
             code: "AT",
             name: "奥地利"
         }, {
-            dict_id: "gj_jc",
             code: "PT",
             name: "葡萄牙"
         }, {
-            dict_id: "gj_jc",
             code: "CY",
             name: "塞浦路斯"
         }, {
-            dict_id: "gj_jc",
             code: "MD",
             name: "摩尔多瓦"
         }, {
-            dict_id: "gj_jc",
             code: "CZ",
             name: "捷克"
         }, {
-            dict_id: "gj_jc",
             code: "UA",
             name: "乌克兰"
         }, {
-            dict_id: "gj_jc",
             code: "BY",
             name: "白俄罗斯"
         }, {
-            dict_id: "gj_jc",
             code: "NL",
             name: "荷兰"
         }, {
-            dict_id: "gj_jc",
             code: "RO",
             name: "罗马尼亚"
         }, {
-            dict_id: "gj_jc",
             code: "NO",
             name: "挪威"
         }, {
-            dict_id: "gj_jc",
             code: "DK",
             name: "丹麦"
         }, {
-            dict_id: "gj_jc",
             code: "BE",
             name: "比利时"
         }, {
-            dict_id: "gj_jc",
             code: "GI",
             name: "直布罗陀"
         }, {
-            dict_id: "gj_jc",
             code: "AM",
             name: "亚美尼亚"
         }, {
-            dict_id: "gj_jc",
             code: "GE",
             name: "格鲁吉亚"
         }, {
-            dict_id: "gj_jc",
             code: "VA",
             name: "梵蒂冈"
         }, {
-            dict_id: "gj_jc",
             code: "ME",
             name: "黑山共和国(黑山)"
         }, {
-            dict_id: "gj_jc",
             code: "XK",
             name: "科索沃"
         }, {
-            dict_id: "gj_jc",
             code: "MK",
             name: "马其顿"
         }, {
-            dict_id: "gj_jc",
             code: "BA",
             name: "波黑共和国(波黑)"
         }, {
-            dict_id: "gj_jc",
             code: "HR",
             name: "克罗地亚"
         }, {
-            dict_id: "gj_jc",
             code: "RS",
             name: "塞尔维亚"
         }]
@@ -241,95 +194,72 @@ export const regions = [
     {
         label: "亚洲地区(除了东南亚)",
         options: [{
-            dict_id: "gj_jc",
             code: "LK",
             name: "斯里兰卡"
         }, {
-            dict_id: "gj_jc",
             code: "TJ",
             name: "塔吉克斯坦"
         }, {
-            dict_id: "gj_jc",
             code: "AF",
             name: "阿富汗"
         }, {
-            dict_id: "gj_jc",
             code: "TM",
             name: "土库曼斯坦"
         }, {
-            dict_id: "gj_jc",
             code: "GU",
             name: "关岛"
         }, {
-            dict_id: "gj_jc",
             code: "KG",
             name: "吉尔吉斯坦"
         }, {
-            dict_id: "gj_jc",
             code: "PK",
             name: "巴基斯坦"
         }, {
-            dict_id: "gj_jc",
             code: "KP",
             name: "朝鲜"
         }, {
-            dict_id: "gj_jc",
             code: "KW",
             name: "科威特"
         }, {
-            dict_id: "gj_jc",
             code: "QA",
             name: "卡塔尔"
         }, {
-            dict_id: "gj_jc",
             code: "UG",
             name: "乌干达"
         }, {
-            dict_id: "gj_jc",
             code: "IL",
             name: "以色列"
         }, {
-            dict_id: "gj_jc",
             code: "IN",
             name: "印度"
         }, {
-            dict_id: "gj_jc",
             code: "BD",
             name: "孟加拉国"
         }, {
-            dict_id: "gj_jc",
             code: "SY",
             name: "叙利亚"
         }, {
-            dict_id: "gj_jc",
             code: "IQ",
             name: "伊拉克"
         }, {
-            dict_id: "gj_jc",
             code: "LB",
             name: "黎巴嫩"
         }, {
-            dict_id: "gj_jc",
             code: "MN",
             name: "蒙古"
         }, {
-            dict_id: "gj_jc",
             code: "NP",
             name: "尼泊尔"
         }, {
-            dict_id: "gj_jc",
             code: "SA",
             name: "沙特阿拉伯"
         }, {
-            dict_id: "gj_jc",
             code: "UZ",
             name: "乌兹别克斯坦"
         }, {
-            dict_id: "gj_jc",
             code: "IR",
             name: "伊朗"
         }, {
-            dict_id: "gj_jc",
             code: "MO",
             name: "澳门"
         }]
@@ -337,47 +267,36 @@ export const regions = [
     {
         label: "东南亚地区",
         options: [{
-            dict_id: "gj_jc",
             code: "SG",
             name: "新加坡"
         }, {
-            dict_id: "gj_jc",
             code: "VN",
             name: "越南"
         }, {
-            dict_id: "gj_jc",
             code: "PH",
             name: "菲律宾"
         }, {
-            dict_id: "gj_jc",
             code: "MY",
             name: "马来西亚"
         }, {
-            dict_id: "gj_jc",
             code: "BN",
             name: "文莱"
         }, {
-            dict_id: "gj_jc",
             code: "KH",
             name: "柬埔寨"
         }, {
-            dict_id: "gj_jc",
             code: "LA",
             name: "老挝"
         }, {
-            dict_id: "gj_jc",
             code: "MM",
             name: "缅甸"
         }, {
-            dict_id: "gj_jc",
             code: "ID",
             name: "印度尼西亚(印尼)"
         }, {
-            dict_id: "gj_jc",
             code: "MV",
             name: "马尔代夫"
         }, {
-            dict_id: "gj_jc",
             code: "TL",
             name: "东帝汶"
         }]
@@ -385,187 +304,141 @@ export const regions = [
     {
         label: "非洲地区",
         options: [{
-            dict_id: "gj_jc",
             code: "BF",
             name: "布基纳法索"
         }, {
-            dict_id: "gj_jc",
             code: "CD",
             name: "刚果(金)"
         }, {
-            dict_id: "gj_jc",
             code: "CG",
             name: "刚果(布)"
         }, {
-            dict_id: "gj_jc",
             code: "TD",
             name: "乍得"
         }, {
-            dict_id: "gj_jc",
             code: "DZ",
             name: "阿尔及利亚"
         }, {
-            dict_id: "gj_jc",
             code: "GM",
             name: "冈比亚"
         }, {
-            dict_id: "gj_jc",
             code: "SC",
             name: "塞舌尔"
         }, {
-            dict_id: "gj_jc",
             code: "TG",
             name: "多哥"
         }, {
-            dict_id: "gj_jc",
             code: "GN",
             name: "几内亚"
         }, {
-            dict_id: "gj_jc",
             code: "SD",
             name: "苏丹"
         }, {
-            dict_id: "gj_jc",
             code: "LR",
             name: "利比里亚"
         }, {
-            dict_id: "gj_jc",
             code: "MU",
             name: "毛里求斯"
         }, {
-            dict_id: "gj_jc",
             code: "BI",
             name: "布隆迪"
         }, {
-            dict_id: "gj_jc",
             code: "EG",
             name: "埃及"
         }, {
-            dict_id: "gj_jc",
             code: "LS",
             name: "莱索托"
         }, {
-            dict_id: "gj_jc",
             code: "BJ",
             name: "贝宁"
         }, {
-            dict_id: "gj_jc",
             code: "CM",
             name: "喀麦隆"
         }, {
-            dict_id: "gj_jc",
             code: "MW",
             name: "马拉维"
         }, {
-            dict_id: "gj_jc",
             code: "TN",
             name: "突尼斯"
         }, {
-            dict_id: "gj_jc",
             code: "ET",
             name: "埃塞俄比亚"
         }, {
-            dict_id: "gj_jc",
             code: "ZA",
             name: "南非"
         }, {
-            dict_id: "gj_jc",
             code: "KE",
             name: "肯尼亚"
         }, {
-            dict_id: "gj_jc",
             code: "ZM",
             name: "赞比亚"
         }, {
-            dict_id: "gj_jc",
             code: "SL",
             name: "塞拉利昂"
         }, {
-            dict_id: "gj_jc",
             code: "ZR",
             name: "扎伊尔"
         }, {
-            dict_id: "gj_jc",
             code: "LY",
             name: "利比亚"
         }, {
-            dict_id: "gj_jc",
             code: "AO",
             name: "安哥拉"
         }, {
-            dict_id: "gj_jc",
             code: "ZW",
             name: "津巴布韦"
         }, {
-            dict_id: "gj_jc",
             code: "MA",
             name: "摩洛哥"
         }, {
-            dict_id: "gj_jc",
             code: "NA",
             name: "纳米比亚"
         }, {
-            dict_id: "gj_jc",
             code: "SN",
             name: "塞内加尔"
         }, {
-            dict_id: "gj_jc",
             code: "GA",
             name: "加蓬"
         }, {
-            dict_id: "gj_jc",
             code: "NE",
             name: "尼日尔"
         }, {
-            dict_id: "gj_jc",
             code: "SO",
             name: "索马里"
         }, {
-            dict_id: "gj_jc",
             code: "TZ",
             name: "坦桑尼亚"
         }, {
-            dict_id: "gj_jc",
             code: "CI",
             name: "科特迪瓦共和国"
         }, {
-            dict_id: "gj_jc",
             code: "NG",
             name: "尼日利亚"
         }, {
-            dict_id: "gj_jc",
             code: "BW",
             name: "博茨瓦纳"
         }, {
-            dict_id: "gj_jc",
             code: "MG",
             name: "马达加斯加"
         }, {
-            dict_id: "gj_jc",
             code: "ST",
             name: "圣多美和普林西比"
         }, {
-            dict_id: "gj_jc",
             code: "ML",
             name: "马里"
         }, {
-            dict_id: "gj_jc",
             code: "DJ",
             name: "吉布提"
         }, {
-            dict_id: "gj_jc",
             code: "GH",
             name: "加纳"
         }, {
-            dict_id: "gj_jc",
             code: "CF",
             name: "中非共和国"
         }, {
-            dict_id: "gj_jc",
             code: "SZ",
             name: "斯威士兰"
         }, {
-            dict_id: "gj_jc",
             code: "MZ",
             name: "莫桑比克"
         }]
@@ -573,147 +446,111 @@ export const regions = [
     {
         label: "美洲地区",
         options: [{
-            dict_id: "gj_jc",
             code: "CA",
             name: "加拿大"
         }, {
-            dict_id: "gj_jc",
             code: "CL",
             name: "智利"
         }, {
-            dict_id: "gj_jc",
             code: "VC",
             name: "圣文森特岛"
         }, {
-            dict_id: "gj_jc",
             code: "MS",
             name: "蒙特塞拉特岛"
         }, {
-            dict_id: "gj_jc",
             code: "EC",
             name: "厄瓜多尔"
         }, {
-            dict_id: "gj_jc",
             code: "VE",
             name: "委内瑞拉"
         }, {
-            dict_id: "gj_jc",
             code: "PA",
             name: "巴拿马"
         }, {
-            dict_id: "gj_jc",
             code: "JM",
             name: "牙买加"
         }, {
-            dict_id: "gj_jc",
             code: "PE",
             name: "秘鲁"
         }, {
-            dict_id: "gj_jc",
             code: "GT",
             name: "危地马拉"
         }, {
-            dict_id: "gj_jc",
             code: "AG",
             name: "安提瓜和巴布达"
         }, {
-            dict_id: "gj_jc",
             code: "GY",
             name: "圭亚那"
         }, {
-            dict_id: "gj_jc",
             code: "MX",
             name: "墨西哥"
         }, {
-            dict_id: "gj_jc",
             code: "AI",
             name: "安圭拉岛"
         }, {
-            dict_id: "gj_jc",
             code: "BM",
             name: "百慕大群岛"
         }, {
-            dict_id: "gj_jc",
             code: "CO",
             name: "哥伦比亚"
         }, {
-            dict_id: "gj_jc",
             code: "CR",
             name: "哥斯达黎加"
         }, {
-            dict_id: "gj_jc",
             code: "HN",
             name: "洪都拉斯"
         }, {
-            dict_id: "gj_jc",
             code: "BO",
             name: "玻利维亚"
         }, {
-            dict_id: "gj_jc",
             code: "TT",
             name: "特立尼达和多巴哥"
         }, {
-            dict_id: "gj_jc",
             code: "HT",
             name: "海地"
         }, {
-            dict_id: "gj_jc",
             code: "AR",
             name: "阿根廷"
         }, {
-            dict_id: "gj_jc",
             code: "PR",
             name: "波多黎各"
         }, {
-            dict_id: "gj_jc",
             code: "CU",
             name: "古巴"
         }, {
-            dict_id: "gj_jc",
             code: "BS",
             name: "巴哈马"
         }, {
-            dict_id: "gj_jc",
             code: "PY",
             name: "巴拉圭"
         }, {
-            dict_id: "gj_jc",
             code: "SR",
             name: "苏里南"
         }, {
-            dict_id: "gj_jc",
             code: "GD",
             name: "格林纳达"
         }, {
-            dict_id: "gj_jc",
             code: "NI",
             name: "尼加拉瓜"
         }, {
-            dict_id: "gj_jc",
             code: "BB",
             name: "巴巴多斯"
         }, {
-            dict_id: "gj_jc",
             code: "BZ",
             name: "伯利兹"
         }, {
-            dict_id: "gj_jc",
             code: "SV",
             name: "萨尔瓦多"
         }, {
-            dict_id: "gj_jc",
             code: "GF",
             name: "法属圭亚那"
         }, {
-            dict_id: "gj_jc",
             code: "UY",
             name: "乌拉圭"
         }, {
-            dict_id: "gj_jc",
             code: "DO",
             name: "多米尼加共和国"
         }, {
-            dict_id: "gj_jc",
             code: "LC",
             name: "圣卢西亚"
         }]
@@ -721,35 +558,27 @@ export const regions = [
     {
         label: "大洋洲地区",
         options: [{
-            dict_id: "gj_jc",
             code: "AU",
             name: "澳大利亚"
         }, {
-            dict_id: "gj_jc",
             code: "SB",
             name: "所罗门群岛"
         }, {
-            dict_id: "gj_jc",
             code: "NZ",
             name: "新西兰"
         }, {
-            dict_id: "gj_jc",
             code: "FJ",
             name: "斐济"
         }, {
-            dict_id: "gj_jc",
             code: "PF",
             name: "法属玻利尼西亚"
         }, {
-            dict_id: "gj_jc",
             code: "PG",
             name: "巴布亚新几内亚"
         }, {
-            dict_id: "gj_jc",
             code: "TO",
             name: "汤加"
         }, {
-            dict_id: "gj_jc",
             code: "NR",
             name: "瑙鲁"
         }]
@@ -757,17 +586,23 @@ export const regions = [
     {
         label: "其他地区",
         options: [{
-            dict_id: "gj_jc",
             code: "CK",
             name: "库克群岛"
         }, {
-            dict_id: "gj_jc",
             code: "AZ",
             name: "阿塞拜疆"
         }, {
-            dict_id: "gj_jc",
             code: "KZ",
             name: "哈萨克斯坦"
         }]
     }
 ]
+
+/**
+ * 地区数据
+ * 数据格式转换为{[code]:name,...}
+ */
+export type Region = {
+    [code: string]: string
+}
+export const regions: Region = regionGroups.flatMap(group => group.options).reduce((acc, region) => ({...acc, [region.code]: region.name}), {});

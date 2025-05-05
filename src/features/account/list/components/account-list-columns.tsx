@@ -9,6 +9,7 @@ import { DataTableColumnHeader } from '@/components/data-table/data-table-column
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { regions } from '@/types/region'
 
 // 账号列表表格列定义
 export const columns: ColumnDef<Account>[] = [
@@ -138,7 +139,14 @@ export const columns: ColumnDef<Account>[] = [
   {
     accessorKey: 'region',
     header: ({ column }) => <DataTableColumnHeader column={column} title={accountFieldMap.region} />,
-    cell: ({ row }) => <div className='text-center'>{row.getValue('region')}</div>,
+    cell: ({ row }) => {
+      const region = row.getValue('region')
+      return (
+        <Badge className="text-center">
+          { `${region}|${regions[region as keyof typeof regions]}` }
+        </Badge>
+      )
+    },
   },
   // 创建时间列
   {

@@ -1,11 +1,12 @@
 import { format } from 'date-fns'
 import { ColumnDef } from '@tanstack/react-table'
 import { Badge } from '@/components/ui/badge'
-import { AccountGroup, accountGroupFieldMap, AccountGroupRegions } from '../data/schema'
+import { AccountGroup, accountGroupFieldMap } from '../data/schema'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 import { cn } from '@/lib/utils'
 import { Checkbox } from '@/components/ui/checkbox'
+import { regions } from '@/types/region'
 
 // 表格列定义
 export const columns: ColumnDef<AccountGroup>[] = [
@@ -63,10 +64,9 @@ export const columns: ColumnDef<AccountGroup>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title={accountGroupFieldMap.region} />,
     cell: ({ row }) => {
       const region = row.getValue('region')
-      const regionInfo = AccountGroupRegions.shape[region as keyof typeof AccountGroupRegions.shape]
       return (
         <Badge className="text-center">
-          { regionInfo.value }
+          { `${region}|${regions[region as keyof typeof regions]}` }
         </Badge>
       )
     },

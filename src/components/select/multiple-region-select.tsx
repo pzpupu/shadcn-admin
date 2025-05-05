@@ -9,15 +9,14 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-import { regions } from "@/types/region"
+import { RegionGroup, regionGroups } from "@/types/region"
 
 export default function MultipleRegionSelect({ onValueChange, defaultValue }: { onValueChange: (value: string[]) => void, defaultValue: string[] }) {
     const [open, setOpen] = useState(false)
-    const [searchQuery, setSearchQuery] = useState("")
     const [selectedValues, setSelectedValues] = useState<string[]>(defaultValue || [])
-
+    const [filteredRegions, setFilteredRegions] = useState<RegionGroup[]>(regionGroups)
     // 所有地区的平面列表，用于查找标签
-    const allRegions = regions.flatMap((group) => group.options)
+    const allRegions = regionGroups.flatMap((group) => group.options)
 
     // 获取选中项的标签
     const getSelectedItemLabels = () => {
@@ -27,13 +26,18 @@ export default function MultipleRegionSelect({ onValueChange, defaultValue }: { 
         })
     }
 
-    // 过滤每个分组中的地区
-    const filteredRegions = regions
-        .map((group) => ({
-            ...group,
-            items: group.options.filter((fruit) => fruit.name.toLowerCase().includes(searchQuery.toLowerCase())),
-        }))
-        .filter((group) => group.items.length > 0) // 只保留有匹配项的分组
+
+    // 根据搜索条件过滤地区
+    const fileter = (searchQuery: string) => {
+        var filteredRegions1 = regionGroups
+            .map((group) => ({
+                ...group,
+                options: group.options.filter((region) => region.code.toLowerCase().includes(searchQuery.toLowerCase()) || region.name.toLowerCase().includes(searchQuery.toLowerCase())),
+            }))
+            .filter((group) => group.options.length > 0)
+        setFilteredRegions([...filteredRegions1])
+    }
+
 
     // 处理选择/取消选择
     const toggleSelection = (value: string) => {
@@ -65,7 +69,7 @@ export default function MultipleRegionSelect({ onValueChange, defaultValue }: { 
                                 getSelectedItemLabels().map((label, index) => (
                                     <Badge key={index} variant="secondary" className="">
                                         {label}
-                                        <button
+                                        <span
                                             className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                                             onMouseDown={(e) => {
                                                 e.preventDefault()
@@ -75,7 +79,7 @@ export default function MultipleRegionSelect({ onValueChange, defaultValue }: { 
                                         >
                                             <X className="h-3 w-3" />
                                             <span className="sr-only">移除 {label}</span>
-                                        </button>
+                                        </span>
                                     </Badge>
                                 ))
                             ) : (
@@ -89,12 +93,11 @@ export default function MultipleRegionSelect({ onValueChange, defaultValue }: { 
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-full p-0" align="start">
-                <Command>
+                <Command shouldFilter={false}>
                     <div className="flex items-center px-3 py-2">
                         <CommandInput
                             placeholder="搜索地区..."
-                            value={searchQuery}
-                            onValueChange={setSearchQuery}
+                            onValueChange={fileter}
                             className="h-8 border-0 bg-transparent p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                         />
                         {selectedValues.length > 0 && (
@@ -114,7 +117,7 @@ export default function MultipleRegionSelect({ onValueChange, defaultValue }: { 
                         <CommandEmpty>没有找到匹配的地区</CommandEmpty>
                         {filteredRegions.map((group, index) => (
                             <CommandGroup key={index} heading={group.label}>
-                                {group.items.map((region) => {
+                                {group.options.map((region) => {
                                     const isSelected = selectedValues.includes(region.code)
                                     return (
                                         <CommandItem
@@ -122,7 +125,7 @@ export default function MultipleRegionSelect({ onValueChange, defaultValue }: { 
                                             onSelect={() => toggleSelection(region.code)}
                                             className={cn("flex items-center justify-between", isSelected && "bg-accent font-medium")}
                                         >
-                                            <span>{region.name}</span>
+                                            <span>{region.code}|{region.name}</span>
                                             {isSelected && <Check className="h-4 w-4" />}
                                         </CommandItem>
                                     )
