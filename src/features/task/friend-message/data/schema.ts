@@ -59,6 +59,7 @@ export const createHttpMessageTaskSchema = z.object({
   groupId: z.string({ required_error: "请选择账号组" }),
   templateId: z.string({ required_error: "请选择模板" }),
   interval: z.number().default(5),
+  retryCount: z.number().default(3),
   regions: z.array(z.string()).default([]),
   sendMode: messageSendModeEnum,
 });

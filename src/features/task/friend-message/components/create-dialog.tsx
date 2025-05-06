@@ -63,7 +63,8 @@ export function FriendMessageTaskCreateDialog() {
       description: undefined,
       groupId: undefined,
       templateId: undefined,
-      interval: 5,
+      interval: createHttpMessageTaskSchema.shape.interval._def.defaultValue(),
+      retryCount: createHttpMessageTaskSchema.shape.retryCount._def.defaultValue(),
       regions: [],
       sendMode: messageSendModeEnum.Enum.SEND_TO_FRIENDS_WITHOUT_MESSAGE,
     },
@@ -283,6 +284,21 @@ export function FriendMessageTaskCreateDialog() {
                       onChange={(e) => field.onChange(Number(e.target.value))}
                       value={field.value === undefined ? '' : field.value}
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* 失败重试次数 */}
+            <FormField
+              control={form.control}
+              name='retryCount'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>失败重试次数</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="输入失败重试次数" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
