@@ -1,15 +1,18 @@
+import { Table } from '@tanstack/react-table'
 import { RefreshCcw, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { friendCollectService } from '@/services/froemd-collect-service'
-import { DataTableToolbarProps } from '@/components/data-table'
-import { MessageTemplate, messageTemplateFieldMap, messageTemplateTypeSchema } from '../data/schema'
 import { DataTableViewOptions } from '@/components/data-table/data-table-view-options'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { DataTableFacetedFilter } from '@/components/data-table/data-table-faceted-filter'
+import tiktokFriendService from '@/services/tiktok-friend-service'
+import { MessageTemplate, messageTemplateFieldMap } from '../data/schema'
+import { messageTemplateService } from '@/services/message-template-service'
 
+
+interface DataTableToolbarProps<TData> {
+  table: Table<TData>
+}
 
 export function DataTableToolbar<TData extends MessageTemplate>({
   table,
@@ -30,15 +33,6 @@ export function DataTableToolbar<TData extends MessageTemplate>({
           className="h-8 w-[150px] lg:w-[250px]"
         />
 
-        <DataTableFacetedFilter
-          column={table.getColumn('type')}
-          title={messageTemplateFieldMap.type}
-          options={Object.entries(messageTemplateTypeSchema.shape).map(([key, value]) => ({
-            value: key,
-            label: value.value
-          }))}
-        />
-
         {/* 清除筛选条件按钮 */}
         {isFiltered && (
           <Button
@@ -52,6 +46,8 @@ export function DataTableToolbar<TData extends MessageTemplate>({
         )}
       </div>
       <div className="flex items-center gap-2">
+        {/* 列显示选项 */}
+        <DataTableViewOptions table={table} fieldMap={messageTemplateFieldMap as Record<keyof TData, string>} />
         {/* 刷新 */}
         <Button
           variant="outline"
@@ -59,7 +55,7 @@ export function DataTableToolbar<TData extends MessageTemplate>({
           className="h-8"
           onClick={() => {
             setIsRefreshing(true)
-            queryClient.invalidateQueries({ queryKey: [friendCollectService.path] })
+            queryClient.invalidateQueries({ queryKey: [messageTemplateService.path] })
               .finally(() => {
                 setIsRefreshing(false)
               })
@@ -68,8 +64,6 @@ export function DataTableToolbar<TData extends MessageTemplate>({
         >
           {isRefreshing ? <RefreshCcw className='h-4 w-4 animate-spin' /> : <RefreshCcw className='h-4 w-4' />}
         </Button>
-        {/* 列显示选项 */}
-        <DataTableViewOptions<TData> table={table} fieldMap={messageTemplateFieldMap as Record<keyof TData, string>} />
       </div>
     </div>
   )

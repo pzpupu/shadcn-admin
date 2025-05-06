@@ -5,7 +5,7 @@ import { HttpMessageTask } from "./data/schema";
 import { Main } from "@/components/layout/main";
 import { DataTable } from "@/components/data-table";
 import { columns } from "./components/columns";
-import { httpMessageService } from "@/services/http-message-service";
+import { httpMessageTaskService } from "@/services/http-message-service";
 import { FriendMessagePrimaryButtons } from "./components/primary-buttons";
 import { FriendMessageDialogs } from "./components/dialogs";
 import { DataTableToolbar } from "./components/toolbar";
@@ -34,7 +34,7 @@ export default function FriendMessagePage() {
           <FriendMessagePrimaryButtons />
         </div>
         <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-y-0 lg:space-x-12'>
-          <DataTable<HttpMessageTask> columns={columns} service={httpMessageService} Toolbar={DataTableToolbar} />
+          <DataTable<HttpMessageTask> columns={columns} service={httpMessageTaskService} Toolbar={DataTableToolbar} />
         </div>
       </Main>
       <FriendMessageDialogs />

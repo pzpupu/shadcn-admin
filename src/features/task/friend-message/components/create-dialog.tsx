@@ -22,7 +22,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useDataTableContext } from '@/components/data-table/data-table-context'
-import { httpMessageService } from '@/services/http-message-service'
+import { httpMessageTaskService } from '@/services/http-message-service'
 import { CreateHttpMessageTaskInput, createHttpMessageTaskSchema, messageSendModeEnum, messageSendModeSchema } from '../data/schema'
 import { Popover, PopoverTrigger } from '@radix-ui/react-popover'
 import { cn } from '@/lib/utils'
@@ -44,10 +44,10 @@ export function FriendMessageTaskCreateDialog() {
 
   // 创建和更新的mutation hooks
   const createMutation = useMutation({
-    mutationFn: (data: CreateHttpMessageTaskInput) => httpMessageService.create(data),
+    mutationFn: (data: CreateHttpMessageTaskInput) => httpMessageTaskService.create(data),
     onSuccess: () => {
       toast.success('好友私信任务创建成功', { duration: 2000 })
-      queryClient.invalidateQueries({ queryKey: [httpMessageService.path] })
+      queryClient.invalidateQueries({ queryKey: [httpMessageTaskService.path] })
     },
     onError: (error) => {
       console.error('创建好友私信任务失败:', error)

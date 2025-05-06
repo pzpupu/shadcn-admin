@@ -3,10 +3,10 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { friendCollectService } from '@/services/froemd-collect-service'
 import { DataTableToolbarProps } from '@/components/data-table'
 import { HttpMessageTask, httpMessageTaskFieldMap } from '../data/schema'
 import { DataTableViewOptions } from '@/components/data-table/data-table-view-options'
+import { httpMessageTaskService } from '@/services/http-message-service'
 
 
 export function DataTableToolbar<TData extends HttpMessageTask>({
@@ -50,7 +50,7 @@ export function DataTableToolbar<TData extends HttpMessageTask>({
           className="h-8"
           onClick={() => {
             setIsRefreshing(true)
-            queryClient.invalidateQueries({ queryKey: [friendCollectService.path] })
+            queryClient.invalidateQueries({ queryKey: [httpMessageTaskService.path] })
               .finally(() => {
                 setIsRefreshing(false)
               })

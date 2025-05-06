@@ -6,7 +6,7 @@ import axios from "@/lib/axios";
  * 好友私信任务服务类
  * 继承自基础CRUD服务，提供好友私信任务相关的操作
  */
-class HttpMessageService extends BaseCrudService<HttpMessageTask> {
+class HttpMessageTaskService extends BaseCrudService<HttpMessageTask> {
   constructor() {
     super('task/httpMessage')
   }
@@ -21,4 +21,4 @@ class HttpMessageService extends BaseCrudService<HttpMessageTask> {
   }
 }
 
-export const httpMessageService = new HttpMessageService() 
+export const httpMessageTaskService = new HttpMessageTaskService() 
