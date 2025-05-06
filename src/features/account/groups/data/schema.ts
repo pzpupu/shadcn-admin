@@ -34,7 +34,7 @@ export const accountGroupListSchema = z.array(accountGroupSchema)
 export const createAccountGroupSchema = z.object({
   name: z.string().min(2, "名称至少需要2个字符"),
   description: z.string(),
-  region: z.string(),
+  region: z.string().optional(),
 })
 export type CreateAccountGroupInput = z.infer<typeof createAccountGroupSchema>
 
