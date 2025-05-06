@@ -25,6 +25,7 @@ import { useDataTableContext } from '@/components/data-table/data-table-context'
 import { messageTemplateService } from '@/services/message-template-service'
 import { CreateMessageTemplateInput, createMessageTemplateSchema } from '../data/schema'
 import { Textarea } from '@/components/ui/textarea'
+import { Badge } from '@/components/ui/badge'
 
 export function MessageTemplateCreateDialog() {
   const { open, setOpen, setCurrent } = useDataTableContext()
@@ -134,6 +135,9 @@ export function MessageTemplateCreateDialog() {
                   <FormMessage />
                   <p className="text-xs text-muted-foreground">
                     请输入多行文本，每行将作为一条独立的模板内容
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    可以使用 <Badge variant="outline">{'{emoji}'}</Badge> 占位符, 随机使用表情符号
                   </p>
                 </FormItem>
               )}
