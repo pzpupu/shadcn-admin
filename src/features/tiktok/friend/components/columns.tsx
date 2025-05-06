@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { TiktokFriend, friendListFieldMap } from "../schema";
+import { TiktokFriend, friendListFieldMap } from "../data/schema";
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
@@ -57,7 +57,7 @@ export const columns: ColumnDef<TiktokFriend>[] = [
   },
   {
     accessorKey: 'accountGroup',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="账号组" />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={friendListFieldMap.accountGroup} />,
     cell: ({ row }) => <Badge variant="outline">{row.original.task.group.name}</Badge>
   },
   {

@@ -1,11 +1,12 @@
 import DataTableProvider from "@/components/data-table/data-table-context";
-import { TiktokFriend } from "./schema";
+import { TiktokFriend } from "./data/schema";
 import { Header } from "@/components/layout/header";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { Main } from "@/components/layout/main";
 import { DataTable } from "@/components/data-table";
 import { columns } from "./components/columns";
 import tiktokFriendService from "@/services/tiktok-friend-service";
+import { DataTableToolbar } from "./components/toolbar";
 
 type DataTableDialogType = false
 
@@ -30,7 +31,7 @@ export default function FriendListPage() {
                     </div>
                 </div>
                 <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-y-0 lg:space-x-12'>
-                    <DataTable<TiktokFriend> columns={columns} service={tiktokFriendService} /* Toolbar={DataTableToolbar} */ />
+                    <DataTable<TiktokFriend> columns={columns} service={tiktokFriendService} Toolbar={DataTableToolbar} />
                 </div>
             </Main>
         </DataTableProvider>

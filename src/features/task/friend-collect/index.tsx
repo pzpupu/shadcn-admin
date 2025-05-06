@@ -8,6 +8,7 @@ import { columns } from "./components/columns";
 import { friendCollectService } from "@/services/froemd-collect-service";
 import { FriendCollectPrimaryButtons } from "./components/primary-buttons";
 import { FriendCollectDialogs } from "./components/dialogs";
+import { DataTableToolbar } from "./components/toolbar";
 
 type DataTableDialogType = 'create'
 
@@ -33,7 +34,7 @@ export default function FollowerCollectPage() {
           <FriendCollectPrimaryButtons />
         </div>
         <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-y-0 lg:space-x-12'>
-          <DataTable<FriendCollectTask> columns={columns} service={friendCollectService} /* Toolbar={DataTableToolbar} */ />
+          <DataTable<FriendCollectTask> columns={columns} service={friendCollectService} Toolbar={DataTableToolbar} />
         </div>
       </Main>
       <FriendCollectDialogs />

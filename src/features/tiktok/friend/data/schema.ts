@@ -28,10 +28,11 @@ export const tiktokFriendSchema = z.object({
 export type TiktokFriend = z.infer<typeof tiktokFriendSchema>;
 
 // 好友列表字段名称映射
-export const friendListFieldMap: Record<keyof TiktokFriend, string> = {
+export const friendListFieldMap: Record<keyof TiktokFriend | "accountGroup", string> = {
   id: "ID",
   task: "任务",
   account: "账号",
+  accountGroup: "账号组",
   uid: "UID",
   secUid: "SecUID",
   uniqueId: "用户名",
