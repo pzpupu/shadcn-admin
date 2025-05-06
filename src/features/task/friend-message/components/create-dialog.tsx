@@ -239,7 +239,7 @@ export function FriendMessageTaskCreateDialog() {
                         <CommandList>
                           <CommandEmpty>未能找到私信模板</CommandEmpty>
                           <CommandGroup>
-                            {groupOptions?.map((item) => (
+                            {templateOptions?.map((item) => (
                               <CommandItem
                                 value={item.value}
                                 key={item.value}
