@@ -7,10 +7,12 @@ import {
 } from '@/components/ui/sidebar'
 import { NavGroup } from '@/components/layout/nav-group'
 import { NavUser } from '@/components/layout/nav-user'
-import { sidebarData } from './data/sidebar-data'
+import { adminSidebarData, sidebarData } from './data/sidebar-data'
 import { DefaultTeam } from './team-switcher'
+import { useAuthStore } from '@/stores/authStore'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const isAdmin = useAuthStore((state) => state.isAdmin())
   return (
     <Sidebar collapsible='icon' variant='floating' {...props}>
       <SidebarHeader>
@@ -21,6 +23,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {sidebarData.navGroups.map((props) => (
           <NavGroup key={props.title} {...props} />
         ))}
+        {
+          isAdmin && adminSidebarData.map((props) => (
+            <NavGroup key={props.title} {...props} />
+          ))
+        }
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

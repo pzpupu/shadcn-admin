@@ -2,11 +2,15 @@ import { authService } from '@/services/auth-service';
 import { create } from 'zustand'
 
 export interface AuthUser {
-  id: number;
+  id: string;
   username: string;
-  nickname: string | null;
-  avatar: string | null;
-  lastLoginTime: string | null;
+  authorities: {
+    authority: string;
+  }[];
+  accountNonExpired: boolean;
+  accountNonLocked: boolean;
+  credentialsNonExpired: boolean;
+  enabled: boolean;
 }
 
 export interface AuthState {
@@ -15,6 +19,7 @@ export interface AuthState {
     setUser: (user: AuthUser | null) => void
     reset: () => void
   }
+  isAdmin: () => boolean
 }
 
 export const useAuthStore = create<AuthState>()((set) => {
@@ -52,7 +57,8 @@ export const useAuthStore = create<AuthState>()((set) => {
           }
         }),
     },
+    isAdmin: () => {
+      return user?.authorities.some((authority) => authority.authority === 'ADMIN') ?? false
+    }
   }
 })
-
-// export const useAuth = () => useAuthStore((state) => state.auth)
