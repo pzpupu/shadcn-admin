@@ -22,7 +22,7 @@ export interface AuthState {
   isAdmin: () => boolean
 }
 
-export const useAuthStore = create<AuthState>()((set) => {
+export const useAuthStore = create<AuthState>()((set,get) => {
 
   const initUser = async () => {
     authService.getUserInfo().then((user) => {
@@ -58,7 +58,7 @@ export const useAuthStore = create<AuthState>()((set) => {
         }),
     },
     isAdmin: () => {
-      return user?.authorities.some((authority) => authority.authority === 'ADMIN') ?? false
+      return get().auth.user?.authorities.some((authority) => authority.authority === 'ROLE_ADMIN') ?? false
     }
   }
 })
