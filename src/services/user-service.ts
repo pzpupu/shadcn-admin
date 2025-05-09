@@ -1,8 +1,8 @@
-import { User } from "@/features/users/data/schema"
+import { CreateUserForm, User } from "@/features/users/data/schema"
 import { BaseCrudService } from "./base-curd-service"
 
 
-class UserService extends BaseCrudService<User> {
+class UserService extends BaseCrudService<User, CreateUserForm> {
   constructor() {
     super('users')
   }

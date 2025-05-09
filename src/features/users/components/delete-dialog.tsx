@@ -2,12 +2,14 @@
 
 import { useState } from 'react'
 import { IconAlertTriangle } from '@tabler/icons-react'
-import { showSubmittedData } from '@/utils/show-submitted-data'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ConfirmDialog } from '@/components/confirm-dialog'
 import { User } from '../data/schema'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { userService } from '@/services/user-service'
+import { toast } from 'sonner'
 
 interface Props {
   open: boolean
@@ -18,11 +20,27 @@ interface Props {
 export function UsersDeleteDialog({ open, onOpenChange, currentRow }: Props) {
   const [value, setValue] = useState('')
 
+  const queryClient = useQueryClient()
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => userService.deleteById(id),
+    onSuccess: () => {
+      toast.success('用户删除成功')
+      queryClient.invalidateQueries({ queryKey: [userService.path] })
+    },
+    onError: (error) => {
+      console.error('删除用户失败:', error)
+      toast.error('删除用户失败')
+    },
+  })
+
   const handleDelete = () => {
     if (value.trim() !== currentRow.username) return
-
-    onOpenChange(false)
-    showSubmittedData(currentRow, 'The following user has been deleted:')
+    deleteMutation.mutate(currentRow.id, {
+      onSuccess: () => {
+        onOpenChange(false)
+      }
+    })
   }
 
   return (
@@ -37,35 +55,28 @@ export function UsersDeleteDialog({ open, onOpenChange, currentRow }: Props) {
             className='stroke-destructive mr-1 inline-block'
             size={18}
           />{' '}
-          Delete User
+          删除用户
         </span>
       }
       desc={
         <div className='space-y-4'>
           <p className='mb-2'>
-            Are you sure you want to delete{' '}
+            确定要删除用户{' '}
             <span className='font-bold'>{currentRow.username}</span>?
-            <br />
-            This action will permanently remove the user with the role of{' '}
-            <span className='font-bold'>
-              {currentRow.role.toUpperCase()}
-            </span>{' '}
-            from the system. This cannot be undone.
           </p>
 
           <Label className='my-2'>
-            Username:
             <Input
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder='Enter username to confirm deletion.'
+              placeholder='输入用户名确认删除。'
             />
           </Label>
 
           <Alert variant='destructive'>
-            <AlertTitle>Warning!</AlertTitle>
+            <AlertTitle>警告！</AlertTitle>
             <AlertDescription>
-              Please be carefull, this operation can not be rolled back.
+              请谨慎操作，该操作无法撤销。
             </AlertDescription>
           </Alert>
         </div>

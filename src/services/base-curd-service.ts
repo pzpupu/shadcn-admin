@@ -2,7 +2,7 @@ import { PagedModel } from "@/types/page"
 import { ColumnFiltersState, PaginationState, SortingState } from "@tanstack/react-table"
 import axios from '@/lib/axios'
 
-export class BaseCrudService<T> {
+export class BaseCrudService<T, C = T> {
 
     public readonly path: string
 
@@ -54,7 +54,7 @@ export class BaseCrudService<T> {
      * @param entity 实体
      * @returns 创建的实体
      */
-    async create(entity: Partial<T>): Promise<T> {
+    async create(entity: Partial<C>): Promise<C> {
         const response = await axios.post(this.path, entity)
         return response.data
     }

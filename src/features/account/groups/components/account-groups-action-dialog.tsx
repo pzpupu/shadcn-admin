@@ -18,17 +18,9 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useAccountGroupsContext } from '../context/account-groups-context'
 import {
-  AccountGroupRegions,
   CreateAccountGroupInput,
   createAccountGroupSchema,
   UpdateAccountGroupInput

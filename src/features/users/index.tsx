@@ -2,12 +2,13 @@ import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { columns } from './components/columns'
-import { UsersDialogs } from './components/users-dialogs'
-import { UsersPrimaryButtons } from './components/users-primary-buttons'
+import { UsersDialogs } from './components/dialogs'
+import { UsersPrimaryButtons } from './components/primary-buttons'
 import UsersProvider from './context/users-context'
 import { User } from './data/schema'
 import { DataTable } from '@/components/data-table'
 import { userService } from '@/services/user-service'
+import { Toolbar } from './components/toolbar'
 
 export default function Users() {
 
@@ -30,7 +31,7 @@ export default function Users() {
           <UsersPrimaryButtons />
         </div>
         <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-y-0 lg:space-x-12'>
-          <DataTable<User> columns={columns} service={userService} />
+          <DataTable<User> columns={columns} service={userService} Toolbar={Toolbar} />
         </div>
       </Main>
 
