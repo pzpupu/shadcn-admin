@@ -44,6 +44,7 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
       ? {
         ...currentRow,
         role: currentRow?.role,
+        password: '[PROTECTION]',
       }
       : {
         username: '',
