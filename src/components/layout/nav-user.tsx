@@ -31,7 +31,7 @@ export function NavUser() {
   const { isMobile } = useSidebar()
   const navigate = useNavigate()
   const { user, reset } = useAuthStore((state) => state.auth)
-
+  const role = useAuthStore((state) => state.role)
 
   /**
    * 处理用户登出
@@ -41,13 +41,13 @@ export function NavUser() {
     try {
       // 调用登出API
       await authService.logout()
-      
+
       // 清除用户状态
       reset()
-      
+
       // 显示成功消息
       toast.success('已成功登出')
-      
+
       // 导航到登录页面
       navigate({ to: '/sign-in' })
     } catch (error) {
@@ -66,12 +66,12 @@ export function NavUser() {
               className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
             >
               <Avatar className='h-8 w-8 rounded-lg'>
-              <AvatarImage src='/avatars/01.png' alt='@shadcn' />
-              <AvatarFallback>{user?.username?.[0]?.toUpperCase() || 'U'}</AvatarFallback>
+                <AvatarImage src='/avatars/01.png' alt='@shadcn' />
+                <AvatarFallback>{user?.username?.[0]?.toUpperCase() || 'U'}</AvatarFallback>
               </Avatar>
               <div className='grid flex-1 text-left text-sm leading-tight'>
                 <span className='truncate font-semibold'>{user?.username?.split('@')[0] || '用户'}</span>
-                <span className='truncate text-xs'>{user?.nickname || '未登录'}</span>
+                <span className='truncate text-xs'>{role || '用户'}</span>
               </div>
               <ChevronsUpDown className='ml-auto size-4' />
             </SidebarMenuButton>
@@ -85,12 +85,12 @@ export function NavUser() {
             <DropdownMenuLabel className='p-0 font-normal'>
               <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
                 <Avatar className='h-8 w-8 rounded-lg'>
-                <AvatarImage src='/avatars/01.png' alt='@shadcn' />
-                <AvatarFallback>{user?.username?.[0]?.toUpperCase() || 'U'}</AvatarFallback>
+                  <AvatarImage src='/avatars/01.png' alt='@shadcn' />
+                  <AvatarFallback>{user?.username?.[0]?.toUpperCase() || 'U'}</AvatarFallback>
                 </Avatar>
                 <div className='grid flex-1 text-left text-sm leading-tight'>
                   <span className='truncate font-semibold'>{user?.username?.split('@')[0] || '用户'}</span>
-                  <span className='truncate text-xs'>{user?.nickname || '未登录'}</span>
+                  <span className='truncate text-xs'>{role || '用户'}</span>
                 </div>
               </div>
             </DropdownMenuLabel>

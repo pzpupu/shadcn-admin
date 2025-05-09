@@ -1,3 +1,4 @@
+import { UserRole, UserRoleEnum } from '@/features/users/data/schema';
 import { authService } from '@/services/auth-service';
 import { create } from 'zustand'
 
@@ -20,6 +21,7 @@ export interface AuthState {
     reset: () => void
   }
   isAdmin: () => boolean
+  role: string | null
 }
 
 export const useAuthStore = create<AuthState>()((set,get) => {
@@ -27,12 +29,13 @@ export const useAuthStore = create<AuthState>()((set,get) => {
   const initUser = async () => {
     authService.getUserInfo().then((user) => {
       localStorage.setItem('user', JSON.stringify(user))
-      set((state) => ({ ...state, auth: { ...state.auth, user } }))
+      const role = UserRole.shape[user?.authorities[0].authority as UserRoleEnum].value
+      set((state) => ({ ...state, auth: { ...state.auth, user }, role }))
     }).catch((error) => {
       console.error('获取用户信息失败:', error)
       if (error.response.status === 401) {  
         localStorage.removeItem('user')
-        set((state) => ({ ...state, auth: { ...state.auth, user: null } }))
+        set((state) => ({ ...state, auth: { ...state.auth, user: null }, role: null }))
       }
     })
   };
@@ -41,7 +44,7 @@ export const useAuthStore = create<AuthState>()((set,get) => {
 
   const localUser = localStorage.getItem('user')
   const user: AuthUser | null = localUser ? JSON.parse(localUser) : null
-
+  const role: string | null = user ? UserRole.shape[user?.authorities[0].authority as UserRoleEnum].value : null
   return {
     auth: {
       user: user,
@@ -59,6 +62,7 @@ export const useAuthStore = create<AuthState>()((set,get) => {
     },
     isAdmin: () => {
       return get().auth.user?.authorities.some((authority) => authority.authority === 'ROLE_ADMIN') ?? false
-    }
+    },
+    role: role
   }
 })
