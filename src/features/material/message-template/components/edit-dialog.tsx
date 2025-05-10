@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
@@ -21,13 +20,14 @@ import {
 import { Input } from '@/components/ui/input'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { useDataTableContext } from '@/components/data-table/data-table-context'
 import { messageTemplateService } from '@/services/message-template-service'
-import { EditMessageTemplateInput, editMessageTemplateSchema } from '../data/schema'
+import {EditMessageTemplateInput, editMessageTemplateSchema, MessageTemplate} from '../data/schema'
 import { Textarea } from '@/components/ui/textarea'
+import {useDataTableContext} from "@/components/data-table/use-data-table-context.tsx";
+import {DataTableDialogType} from "@/features/material/message-template";
 
 export function MessageTemplateEditDialog() {
-  const { open, setOpen, current, setCurrent } = useDataTableContext()
+  const { open, setOpen, current, setCurrent } = useDataTableContext<MessageTemplate,DataTableDialogType>()
   const queryClient = useQueryClient()
 
   // 更新mutation hook
@@ -41,6 +41,7 @@ export function MessageTemplateEditDialog() {
       queryClient.invalidateQueries({ queryKey: [messageTemplateService.path] })
     },
     onError: (error) => {
+      // eslint-disable-next-line no-console
       console.error('更新私信模板失败:', error)
       toast.error('更新私信模板失败')
     },
@@ -50,10 +51,10 @@ export function MessageTemplateEditDialog() {
   const form = useForm<EditMessageTemplateInput>({
     resolver: zodResolver(editMessageTemplateSchema),
     defaultValues: {
-      id: current.id,
-      name: current.name,
-      contents: [current.contents.join('\n')],
-      type: current.type,
+      id: current?.id,
+      name: current?.name,
+      contents: [current?.contents.join('\n') || ''],
+      type: current?.type,
     },
   })
 

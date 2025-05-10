@@ -9,8 +9,11 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu'
 import { AccountGroup, accountGroupFieldMap } from '../data/schema'
-import { DataTableViewOptionsProps } from '@/components/data-table'
+import { Table } from '@tanstack/react-table'
 
+export interface DataTableViewOptionsProps<TData> {
+    table: Table<TData>
+}
 
 export function DataTableViewOptions<TData>({
   table,

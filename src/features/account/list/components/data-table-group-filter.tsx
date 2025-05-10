@@ -38,7 +38,7 @@ export function DataTableGroupFilter<TData, TValue>({
   const selectedValues = column?.getFilterValue()
   const [searchTerm, setSearchTerm] = useState<string>('')
 
-  const { data: options, isLoading, ...rest } = useQuery({
+  const { data: options, isLoading } = useQuery({
     queryKey: [`${accountGroupService.path}/options`, searchTerm],
     queryFn: () => accountGroupService.getOptions(searchTerm, 7),
     // placeholderData: keepPreviousData,

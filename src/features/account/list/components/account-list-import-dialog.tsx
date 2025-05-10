@@ -56,13 +56,14 @@ export function AccountListImportDialog() {
   const improtMutation = useMutation({
     mutationFn: (data: ImportAccountsInput) => accountService.importAccounts(data),
     onSuccess: (data) => {
-      var result = data.data
+      const result = data.data
       toast.success(`成功导入 ${result.importCount} 个账号${result.errorCount ? `，${result.errorCount} 个失败` : ''}`, { duration: 2000 })
       queryClient.invalidateQueries({ queryKey: [accountService.path] })
       // 关闭对话框
       setOpen(null)
     },
     onError: (error) => {
+      // eslint-disable-next-line no-console
       console.error('导入账号失败:', error)
       toast.error('导入账号失败')
     },

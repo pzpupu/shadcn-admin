@@ -21,7 +21,6 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { useDataTableContext } from '@/components/data-table/data-table-context'
 import { httpMessageTaskService } from '@/services/http-message-service'
 import { CreateHttpMessageTaskInput, createHttpMessageTaskSchema, messageSendModeEnum, messageSendModeSchema } from '../data/schema'
 import { Popover, PopoverTrigger } from '@radix-ui/react-popover'
@@ -34,11 +33,12 @@ import { useState } from 'react'
 import { messageTemplateService } from '@/services/message-template-service'
 import MultipleRegionSelect from '@/components/select/multiple-region-select'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {useDataTableContext} from "@/components/data-table/use-data-table-context.tsx";
 
 export function FriendMessageTaskCreateDialog() {
   const { open, setOpen } = useDataTableContext()
   const [searchTerm, setSearchTerm] = useState<string>('')
-  const [templateSearchTerm, setTemplateSearchTerm] = useState<string>('')
+  const [templateSearchTerm] = useState<string>('')
 
   const queryClient = useQueryClient()
 
@@ -50,6 +50,7 @@ export function FriendMessageTaskCreateDialog() {
       queryClient.invalidateQueries({ queryKey: [httpMessageTaskService.path] })
     },
     onError: (error) => {
+      // eslint-disable-next-line no-console
       console.error('创建好友私信任务失败:', error)
       toast.error('创建好友私信任务失败')
     },
@@ -63,8 +64,8 @@ export function FriendMessageTaskCreateDialog() {
       description: undefined,
       groupId: undefined,
       templateId: undefined,
-      interval: createHttpMessageTaskSchema.shape.interval._def.defaultValue(),
-      retryCount: createHttpMessageTaskSchema.shape.retryCount._def.defaultValue(),
+      interval: 5,
+      retryCount: 3,
       regions: [],
       sendMode: messageSendModeEnum.Enum.SEND_TO_FRIENDS_WITHOUT_MESSAGE,
     },
@@ -83,7 +84,8 @@ export function FriendMessageTaskCreateDialog() {
   })
 
   // 提交表单
-  const onSubmit = (data: CreateHttpMessageTaskInput) => {
+  const onSubmit = () => {
+      const data = form.getValues()
     createMutation.mutate(data, {
         onSuccess: () => {
           setOpen(null)
@@ -124,7 +126,7 @@ export function FriendMessageTaskCreateDialog() {
                   <FormMessage />
                 </FormItem>
               )}
-            />      
+            />
 
             {/* 描述字段 */}
             <FormField
@@ -277,9 +279,9 @@ export function FriendMessageTaskCreateDialog() {
                 <FormItem>
                   <FormLabel>发送消息间隔时间</FormLabel>
                   <FormControl>
-                    <Input 
-                      type="number" 
-                      placeholder="输入发送消息间隔时间" 
+                    <Input
+                      type="number"
+                      placeholder="输入发送消息间隔时间"
                       {...field}
                       onChange={(e) => field.onChange(Number(e.target.value))}
                       value={field.value === undefined ? '' : field.value}
@@ -314,7 +316,7 @@ export function FriendMessageTaskCreateDialog() {
                   <FormLabel>地区</FormLabel>
                   <MultipleRegionSelect
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    defaultValue={field.value||[]}
                   />
                   <FormMessage />
                 </FormItem>

@@ -44,6 +44,7 @@ export function AccountGroupsActionDialog() {
       queryClient.invalidateQueries({ queryKey: [accountGroupService.path] })
     },
     onError: (error) => {
+      // eslint-disable-next-line no-console
       console.error('创建账号组失败:', error)
       toast.error('创建账号组失败')
     },
@@ -56,6 +57,7 @@ export function AccountGroupsActionDialog() {
       queryClient.invalidateQueries({ queryKey: [accountGroupService.path] })
     },
     onError: (error) => {
+      // eslint-disable-next-line no-console
       console.error('更新账号组失败:', error)
       toast.error('更新账号组失败')
     },
@@ -159,7 +161,7 @@ export function AccountGroupsActionDialog() {
                   <FormLabel>地区</FormLabel>
                   <RegionSelect
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    defaultValue={field.value as string}
                   />
                   <FormMessage />
                 </FormItem>

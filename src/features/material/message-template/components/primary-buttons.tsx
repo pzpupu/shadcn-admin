@@ -1,6 +1,7 @@
 import { PlusCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useDataTableContext } from '@/components/data-table/data-table-context'
+
+import {useDataTableContext} from "@/components/data-table/use-data-table-context.tsx";
 
 // 私信模板列表主操作按钮组件实现
 export function MessageTemplatePrimaryButtons() {

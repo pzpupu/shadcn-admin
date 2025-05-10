@@ -1,17 +1,12 @@
-import { Link, useNavigate } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 import {
-  BadgeCheck,
-  Bell,
   ChevronsUpDown,
-  CreditCard,
   LogOut,
-  Sparkles,
 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -52,6 +47,7 @@ export function NavUser() {
       // 导航到登录页面
       navigate({ to: '/sign-in' })
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('登出失败:', error)
       toast.error('登出失败，请稍后再试')
     }

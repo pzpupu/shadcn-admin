@@ -1,5 +1,6 @@
+import { User } from '@/features/users/data/schema'
 import axiosInstance from '@/lib/axios'
-import { AuthUser } from '@/stores/authStore'
+import { AxiosError } from 'axios'
 
 /**
  * 登录响应接口
@@ -39,13 +40,12 @@ export const authService = {
           'Content-Type': 'multipart/form-data',
         },
       })
-
       return response.data
-    } catch (error: any) {
-      console.error('登录请求失败:', error)
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError<LoginResponse>;
       return {
         success: false,
-        message: error.response?.data?.message || '登录请求失败，请稍后再试',
+        message: axiosError.response?.data?.message || '登录请求失败，请稍后再试',
       }
     }
   },
@@ -59,6 +59,7 @@ export const authService = {
       const response = await axiosInstance.post<{ success: boolean }>('/auth/logout')
       return response.data.success
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('退出登录失败:', error)
       return false
     }
@@ -68,11 +69,12 @@ export const authService = {
    * 获取当前用户信息
    * @returns Promise<Me | null>
    */
-  async getUserInfo(): Promise<AuthUser | null> {
+  async getUserInfo(): Promise<User | null> {
     try {
-      const response = await axiosInstance.get<AuthUser>('/auth/me')
+      const response = await axiosInstance.get<User>('/auth/me')
       return response.data
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('获取用户信息失败:', error)
       return null
     }

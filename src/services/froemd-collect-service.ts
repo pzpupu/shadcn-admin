@@ -1,5 +1,5 @@
 import { BaseCrudService } from "./base-curd-service";
-import { CreateCollectFollowerTaskInput, FriendCollectTask } from "@/features/task/friend-collect/data/schema";
+import {CreateFriendCollectTaskInput, FriendCollectTask} from "@/features/task/friend-collect/data/schema";
 import axios from "@/lib/axios";
 
 /**
@@ -16,7 +16,7 @@ class FriendCollectService extends BaseCrudService<FriendCollectTask> {
    * @param form 创建任务的表单数据
    * @returns 创建的任务对象
    */
-  async createTask(form: CreateCollectFollowerTaskInput) {
+  async createTask(form: CreateFriendCollectTaskInput) {
     return await axios.post<FriendCollectTask>(`${this.path}`, form);
   }
 }

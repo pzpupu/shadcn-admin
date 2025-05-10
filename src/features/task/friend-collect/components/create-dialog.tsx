@@ -21,9 +21,8 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { useDataTableContext } from '@/components/data-table/data-table-context'
 import { friendCollectService } from '@/services/froemd-collect-service'
-import { CreateFriendCollectTaskInput, createFriendCollectTaskSchema } from '../data/schema'
+import {CreateFriendCollectTaskInput, createFriendCollectTaskSchema, FriendCollectTask} from '../data/schema'
 import { Popover, PopoverTrigger } from '@radix-ui/react-popover'
 import { cn } from '@/lib/utils'
 import { accountGroupService } from '@/services/account-group-service'
@@ -31,9 +30,11 @@ import { Check, ChevronsUpDown } from 'lucide-react'
 import { PopoverContent } from '@/components/ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { useState } from 'react'
+import {useDataTableContext} from "@/components/data-table/use-data-table-context.tsx";
+import {DataTableDialogType} from "@/features/task/friend-collect";
 
 export function FriendCollectTaskCreateDialog() {
-  const { open, setOpen, current, setCurrent } = useDataTableContext()
+  const { open, setOpen, current, setCurrent } = useDataTableContext<FriendCollectTask,DataTableDialogType>()
   const [searchTerm, setSearchTerm] = useState<string>('')
 
 
@@ -47,6 +48,7 @@ export function FriendCollectTaskCreateDialog() {
       queryClient.invalidateQueries({ queryKey: [friendCollectService.path] })
     },
     onError: (error) => {
+      // eslint-disable-next-line no-console
       console.error('创建好友采集任务失败:', error)
       toast.error('创建好友采集任务失败')
     },
@@ -58,7 +60,7 @@ export function FriendCollectTaskCreateDialog() {
     defaultValues: {
       name: current?.name || '',
       description: current?.description || '',
-      groupId: current?.groupId || undefined,
+      groupId: current?.group?.id || undefined,
     },
   })
 

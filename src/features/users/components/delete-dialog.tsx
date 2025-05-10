@@ -29,6 +29,7 @@ export function UsersDeleteDialog({ open, onOpenChange, currentRow }: Props) {
       queryClient.invalidateQueries({ queryKey: [userService.path] })
     },
     onError: (error) => {
+      // eslint-disable-next-line no-console
       console.error('删除用户失败:', error)
       toast.error('删除用户失败')
     },

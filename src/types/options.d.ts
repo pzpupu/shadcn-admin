@@ -7,7 +7,7 @@ export interface Option {
   /**
    * 选项值
    */
-  value: any
+  value: string
   
   /**
    * 选项标签

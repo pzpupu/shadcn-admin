@@ -2,11 +2,11 @@ import { PagedModel } from "@/types/page"
 import { ColumnFiltersState, PaginationState, SortingState } from "@tanstack/react-table"
 import axios from '@/lib/axios'
 
-export class BaseCrudService<T, C = T> {
+export abstract class BaseCrudService<T> {
 
     public readonly path: string
 
-    constructor(path: string) {
+    protected constructor(path: string) {
         this.path = path
     }
 
@@ -54,7 +54,7 @@ export class BaseCrudService<T, C = T> {
      * @param entity 实体
      * @returns 创建的实体
      */
-    async create(entity: Partial<C>): Promise<C> {
+    async create(entity: Partial<T>): Promise<T> {
         const response = await axios.post(this.path, entity)
         return response.data
     }
@@ -64,7 +64,7 @@ export class BaseCrudService<T, C = T> {
      * @param entity 实体
      * @returns 更新的实体
      */
-    async update(entity: { id: string;[key: string]: any }): Promise<T> {
+    async update(entity: Partial<T> & { id: string }): Promise<T> {
         const response = await axios.put(`${this.path}/${entity.id}`, entity)
         return response.data
     }

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
@@ -19,13 +18,13 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { useDataTableContext } from '@/components/data-table/data-table-context'
 import { messageTemplateService } from '@/services/message-template-service'
 import { CreateMessageTemplateInput, createMessageTemplateSchema } from '../data/schema'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
+import {useDataTableContext} from "@/components/data-table/use-data-table-context.tsx";
 
 export function MessageTemplateCreateDialog() {
   const { open, setOpen, setCurrent } = useDataTableContext()
@@ -38,6 +37,7 @@ export function MessageTemplateCreateDialog() {
       queryClient.invalidateQueries({ queryKey: [messageTemplateService.path] })
     },
     onError: (error) => {
+      // eslint-disable-next-line no-console
       console.error('创建私信模板失败:', error)
       toast.error('创建私信模板失败')
     },
@@ -54,7 +54,7 @@ export function MessageTemplateCreateDialog() {
   })
 
   // 提交表单
-  const onSubmit = (data: CreateMessageTemplateInput) => {
+  const onSubmit = () => {
     // 处理换行分割的内容
     const rawContent = form.getValues('contents')[0] || '';
     const contentLines = rawContent
@@ -63,15 +63,15 @@ export function MessageTemplateCreateDialog() {
       .filter(line => line.length > 0);
 
     if (contentLines.length === 0) {
-      form.setError('contents', { 
+      form.setError('contents', {
         type: 'manual',
         message: '请至少输入一条模板内容'
       });
       return;
     }
-
+    const values = form.getValues();
     const submissionData = {
-      ...data,
+      ...values,
       contents: contentLines,
     };
 
@@ -117,7 +117,7 @@ export function MessageTemplateCreateDialog() {
                 </FormItem>
               )}
             />
-            
+
             {/* 模板内容 */}
             <FormField
               control={form.control}
@@ -126,10 +126,10 @@ export function MessageTemplateCreateDialog() {
                 <FormItem>
                   <FormLabel>模板内容</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      placeholder="输入模板内容，每行一条内容" 
-                      className="min-h-[150px]" 
-                      {...field} 
+                    <Textarea
+                      placeholder="输入模板内容，每行一条内容"
+                      className="min-h-[150px]"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />

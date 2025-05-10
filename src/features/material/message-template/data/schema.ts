@@ -42,7 +42,7 @@ export const messageTemplateFieldMap: Record<keyof MessageTemplate, string> = {
 export const createMessageTemplateSchema = z.object({
   name: z.string().min(1, "模板名称不能为空").max(100, "模板名称最多100个字符"),
   contents: z.array(z.string()).min(1, "至少需要一条模板内容"),
-  type: z.literal("TEXT").default("TEXT"),
+  type: messageTemplateTypeEnum,
 });
 
 /**
@@ -57,7 +57,7 @@ export const editMessageTemplateSchema = z.object({
   id: z.string(),
   name: z.string().min(1, "模板名称不能为空").max(100, "模板名称最多100个字符"),
   contents: z.array(z.string()).min(1, "至少需要一条模板内容"),
-  type: z.literal("TEXT").default("TEXT"),
+  type: z.literal("TEXT"),
 });
 
 /**

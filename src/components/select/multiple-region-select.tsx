@@ -29,7 +29,7 @@ export default function MultipleRegionSelect({ onValueChange, defaultValue }: { 
 
     // 根据搜索条件过滤地区
     const fileter = (searchQuery: string) => {
-        var filteredRegions1 = regionGroups
+        const filteredRegions1 = regionGroups
             .map((group) => ({
                 ...group,
                 options: group.options.filter((region) => region.code.toLowerCase().includes(searchQuery.toLowerCase()) || region.name.toLowerCase().includes(searchQuery.toLowerCase())),

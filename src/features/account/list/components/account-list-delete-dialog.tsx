@@ -27,6 +27,7 @@ export function AccountListDeleteDialog() {
       setOpen(null)
     },
     onError: (error) => {
+      // eslint-disable-next-line no-console
       console.error('删除账号失败', error)
       toast.error('删除账号时发生错误，请稍后重试')
     },

@@ -10,7 +10,7 @@ import { MessageTemplatePrimaryButtons } from "./components/primary-buttons";
 import { MessageTemplateDialogs } from "./components/dialogs";
 import { DataTableToolbar } from "./components/toolbar";
 
-type DataTableDialogType = 'create' | 'edit'
+export type DataTableDialogType = 'create' | 'edit'
 
 /**
  * 私信模板管理页面

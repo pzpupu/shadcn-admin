@@ -10,10 +10,10 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { MessageTemplate } from '../data/schema'
 import { Edit, MoreHorizontal, Trash } from 'lucide-react'
-import { useDataTableContext } from '@/components/data-table/data-table-context'
 import { messageTemplateService } from '@/services/message-template-service'
 import { toast } from 'sonner'
 import { useQueryClient } from '@tanstack/react-query'
+import {useDataTableContext} from "@/components/data-table/use-data-table-context.tsx";
 
 interface DataTableRowActionsProps {
   row: Row<MessageTemplate>
@@ -37,6 +37,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
       toast.success('删除成功')
       queryClient.invalidateQueries({ queryKey: [messageTemplateService.path] })
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('删除失败:', error)
       toast.error('删除失败')
     }

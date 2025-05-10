@@ -1,5 +1,5 @@
 import { Row } from '@tanstack/react-table'
-import { MoreHorizontal, Trash, Edit, RefreshCcw } from 'lucide-react'
+import { MoreHorizontal, Trash, RefreshCcw } from 'lucide-react'
 import { useAccountListContext } from '../context/account-list-context'
 import { Account } from '../data/schema'
 import { accountService } from '@/services/account-services'
@@ -44,6 +44,7 @@ export function DataTableRowActions<TData>({
       queryClient.invalidateQueries({ queryKey: [accountService.path] })
     },
     onError: (error: AxiosError<Result<unknown>>) => {
+      // eslint-disable-next-line no-console
       console.error('刷新账号失败', error)
       toast.error(`${error.response?.data?.message || error.message}`, { duration: 5000, description: error.response?.data?.desc })
     }

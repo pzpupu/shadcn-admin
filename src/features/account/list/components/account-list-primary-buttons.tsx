@@ -1,4 +1,4 @@
-import { PlusCircle, Upload } from 'lucide-react'
+import { Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAccountListContext } from '../context/account-list-context'
 

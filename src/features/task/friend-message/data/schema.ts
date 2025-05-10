@@ -58,9 +58,9 @@ export const createHttpMessageTaskSchema = z.object({
   description: z.string().max(500, "任务描述最多500个字符").optional(),
   groupId: z.string({ required_error: "请选择账号组" }),
   templateId: z.string({ required_error: "请选择模板" }),
-  interval: z.number().default(5),
-  retryCount: z.number().default(3),
-  regions: z.array(z.string()).default([]),
+  interval: z.number({ required_error: "请输入间隔" }),
+  retryCount: z.number({ required_error: "请输入重试次数" }),
+  regions: z.array(z.string()).default([]).optional(),
   sendMode: messageSendModeEnum,
 });
 

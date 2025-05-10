@@ -20,7 +20,6 @@ export const useAuthStore = create<AuthState>()((set,get) => {
       const role = user?.role as UserRoleEnum
       set((state) => ({ ...state, auth: { ...state.auth, user }, role }))
     }).catch((error) => {
-      console.error('获取用户信息失败:', error)
       if (error.response.status === 401) {  
         localStorage.removeItem('user')
         set((state) => ({ ...state, auth: { ...state.auth, user: null }, role: null }))

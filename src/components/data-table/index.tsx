@@ -8,7 +8,7 @@ import {
     useReactTable,
     Table as ReactTable,
 } from '@tanstack/react-table'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import {
     Table,
     TableBody,
@@ -20,8 +20,8 @@ import {
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { Spinner } from '@/components/ui/spinner'
 import { PagedModel } from '@/types/page'
-import { BaseCrudService } from '@/services/base-curd-service'
 import ProTablePagination from './data-table-pagination'
+import {BaseCrudService} from "@/services/base-curd-service.ts";
 
 // 表格工具栏组件Props
 export interface DataTableToolbarProps<TData> {
@@ -33,6 +33,7 @@ export interface DataTableViewOptionsProps<TData> {
     table: ReactTable<TData>
     fieldMap: Record<keyof TData, string>
 }
+
 
 interface DataTableProps<T> {
     columns: ColumnDef<T>[]

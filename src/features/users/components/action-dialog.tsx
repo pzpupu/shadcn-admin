@@ -69,6 +69,7 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
       queryClient.invalidateQueries({ queryKey: [userService.path] })
     },
     onError: (error) => {
+      // eslint-disable-next-line no-console
       console.error('创建用户失败:', error)
     },
   })

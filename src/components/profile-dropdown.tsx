@@ -37,6 +37,7 @@ export function ProfileDropdown() {
       // 导航到登录页面
       navigate({ to: '/sign-in' })
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('登出失败:', error)
       toast.error('登出失败，请稍后再试')
     }
@@ -57,7 +58,7 @@ export function ProfileDropdown() {
           <div className='flex flex-col space-y-1'>
             <p className='text-sm leading-none font-medium'>{user?.username?.split('@')[0] || '用户'}</p>
             <p className='text-muted-foreground text-xs leading-none'>
-              {user?.nickname || '未登录'}
+              {user?.username || '未登录'}
             </p>
           </div>
         </DropdownMenuLabel>

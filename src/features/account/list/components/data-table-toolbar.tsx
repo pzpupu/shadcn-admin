@@ -65,7 +65,6 @@ export function DataTableToolbar<TData>({
           size='sm'
           disabled={selectedAccounts.length === 0}
           onClick={() => {
-            console.log(selectedAccounts)
           }}
           className='h-8'
         >

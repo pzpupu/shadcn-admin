@@ -24,6 +24,7 @@ export function AccountGroupsDeleteDialog() {
       queryClient.invalidateQueries({ queryKey: [accountGroupService.path] })
     },
     onError: (error) => {
+      // eslint-disable-next-line no-console
       console.error('删除账号组失败:', error)
       toast.error('删除账号组失败')
     },

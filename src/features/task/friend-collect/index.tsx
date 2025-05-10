@@ -10,7 +10,7 @@ import { FriendCollectPrimaryButtons } from "./components/primary-buttons";
 import { FriendCollectDialogs } from "./components/dialogs";
 import { DataTableToolbar } from "./components/toolbar";
 
-type DataTableDialogType = 'create'
+export type DataTableDialogType = 'create'
 
 /**
  * 粉丝采集任务列表页面

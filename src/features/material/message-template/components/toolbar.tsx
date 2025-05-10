@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { DataTableViewOptions } from '@/components/data-table/data-table-view-options'
-import tiktokFriendService from '@/services/tiktok-friend-service'
 import { MessageTemplate, messageTemplateFieldMap } from '../data/schema'
 import { messageTemplateService } from '@/services/message-template-service'
 
