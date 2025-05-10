@@ -64,11 +64,14 @@ export const columns: ColumnDef<AccountGroup>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title={accountGroupFieldMap.region} />,
     cell: ({ row }) => {
       const region = row.getValue('region')
-      return (
-        <Badge className="text-center">
-          { `${region}|${regions[region as keyof typeof regions]}` }
-        </Badge>
-      )
+      if (region) {
+        return (
+          <Badge className="text-center">
+            { `${region}|${regions[region as keyof typeof regions]}` }
+          </Badge>
+        )
+      }
+      return '-'
     },
   },
   {
