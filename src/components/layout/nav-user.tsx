@@ -26,6 +26,7 @@ import {
 import { authService } from '@/services/auth-service'
 import { useAuthStore } from '@/stores/authStore'
 import { toast } from 'sonner'
+import { UserRole } from '@/features/users/data/schema'
 
 export function NavUser() {
   const { isMobile } = useSidebar()
@@ -71,7 +72,7 @@ export function NavUser() {
               </Avatar>
               <div className='grid flex-1 text-left text-sm leading-tight'>
                 <span className='truncate font-semibold'>{user?.username?.split('@')[0] || '用户'}</span>
-                <span className='truncate text-xs'>{role || '用户'}</span>
+                <span className='truncate text-xs'>{role ? UserRole.shape[role].value : '用户'}</span>
               </div>
               <ChevronsUpDown className='ml-auto size-4' />
             </SidebarMenuButton>
@@ -90,7 +91,7 @@ export function NavUser() {
                 </Avatar>
                 <div className='grid flex-1 text-left text-sm leading-tight'>
                   <span className='truncate font-semibold'>{user?.username?.split('@')[0] || '用户'}</span>
-                  <span className='truncate text-xs'>{role || '用户'}</span>
+                  <span className='truncate text-xs'>{role ? UserRole.shape[role].value : '用户'}</span>
                 </div>
               </div>
             </DropdownMenuLabel>

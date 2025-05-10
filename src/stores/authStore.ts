@@ -1,27 +1,15 @@
-import { UserRole, UserRoleEnum } from '@/features/users/data/schema';
+import { User, UserRoleEnum } from '@/features/users/data/schema';
 import { authService } from '@/services/auth-service';
 import { create } from 'zustand'
 
-export interface AuthUser {
-  id: string;
-  username: string;
-  authorities: {
-    authority: string;
-  }[];
-  accountNonExpired: boolean;
-  accountNonLocked: boolean;
-  credentialsNonExpired: boolean;
-  enabled: boolean;
-}
-
 export interface AuthState {
   auth: {
-    user: AuthUser | null
-    setUser: (user: AuthUser | null) => void
+    user: User | null
+    setUser: (user: User | null) => void
     reset: () => void
   }
   isAdmin: () => boolean
-  role: string | null
+  role: UserRoleEnum | null
 }
 
 export const useAuthStore = create<AuthState>()((set,get) => {
@@ -29,7 +17,7 @@ export const useAuthStore = create<AuthState>()((set,get) => {
   const initUser = async () => {
     authService.getUserInfo().then((user) => {
       localStorage.setItem('user', JSON.stringify(user))
-      const role = UserRole.shape[user?.authorities[0].authority as UserRoleEnum].value
+      const role = user?.role as UserRoleEnum
       set((state) => ({ ...state, auth: { ...state.auth, user }, role }))
     }).catch((error) => {
       console.error('获取用户信息失败:', error)
@@ -43,8 +31,8 @@ export const useAuthStore = create<AuthState>()((set,get) => {
   initUser();
 
   const localUser = localStorage.getItem('user')
-  const user: AuthUser | null = localUser ? JSON.parse(localUser) : null
-  const role: string | null = user ? UserRole.shape[user?.authorities[0].authority as UserRoleEnum].value : null
+  const user: User | null = localUser ? JSON.parse(localUser) : null
+  const role: UserRoleEnum | null = user?.role as UserRoleEnum
   return {
     auth: {
       user: user,
@@ -61,7 +49,7 @@ export const useAuthStore = create<AuthState>()((set,get) => {
         }),
     },
     isAdmin: () => {
-      return get().auth.user?.authorities.some((authority) => authority.authority === 'ROLE_ADMIN') ?? false
+      return get().auth.user?.role === UserRoleEnum.enum.ADMIN || false
     },
     role: role
   }

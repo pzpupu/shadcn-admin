@@ -13,6 +13,8 @@ import { useAuthStore } from '@/stores/authStore'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const isAdmin = useAuthStore((state) => state.isAdmin())
+
+  console.log('isAdmin', isAdmin)
   return (
     <Sidebar collapsible='icon' variant='floating' {...props}>
       <SidebarHeader>
