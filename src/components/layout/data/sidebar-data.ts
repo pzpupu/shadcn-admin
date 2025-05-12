@@ -48,16 +48,16 @@ export const sidebarData: SidebarData = {
         },
       ],
     },
-    {
-      title: '数据',
-      items: [
-        {
-          title: '好友列表',
-          url: '/tiktok/friend',
-          icon: IconFriends,
-        },
-      ],
-    },
+    // {
+    //   title: '数据',
+    //   items: [
+    //     {
+    //       title: '好友列表',
+    //       url: '/tiktok/friend',
+    //       icon: IconFriends,
+    //     },
+    //   ],
+    // },
     {
       title: '素材',
       items: [
