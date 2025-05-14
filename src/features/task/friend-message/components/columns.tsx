@@ -145,7 +145,7 @@ export const columns: ColumnDef<HttpMessageTask>[] = [
     accessorKey: 'actions',
     header: ({ column }) => <DataTableColumnHeader column={column} title="操作" />,
     cell: ({ row }) => {
-      return <Link to={`/task/friend-message/$id/logs`} params={{ id: row.original.id }}>
+      return <Link to={`/task/friend-message/$taskId/logs`} params={{ taskId: row.original.id }}>
         <Button size="xs">任务日志</Button>
       </Link>
     }

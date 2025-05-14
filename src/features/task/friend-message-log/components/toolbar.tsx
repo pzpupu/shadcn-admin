@@ -1,20 +1,21 @@
-import { RefreshCcw, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { DataTableToolbarProps } from '@/components/data-table'
 import { DataTableViewOptions } from '@/components/data-table/data-table-view-options'
-import { httpMessageTaskService } from '@/services/http-message-service'
 import { FriendMessageLog, friendMessageLogFieldMap } from '../data/schema'
+import { Route } from '@/routes/_authenticated/task/friend-message/$taskId/logs'
+import { RefreshCcw } from 'lucide-react'
 
 
 export function DataTableToolbar<TData extends FriendMessageLog>({
   table,
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0
+  // const isFiltered = table.getState().columnFilters.length > 0
   const queryClient = useQueryClient()
   const [isRefreshing, setIsRefreshing] = useState(false)
-
+  const { taskId } = Route.useParams()
+  
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -30,7 +31,7 @@ export function DataTableToolbar<TData extends FriendMessageLog>({
           className="h-8"
           onClick={() => {
             setIsRefreshing(true)
-            queryClient.invalidateQueries({ queryKey: [httpMessageTaskService.path] })
+            queryClient.invalidateQueries({ queryKey: [`task/httpMessage/${taskId}/logs`] })
               .finally(() => {
                 setIsRefreshing(false)
               })

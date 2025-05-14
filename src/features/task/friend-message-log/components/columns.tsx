@@ -1,12 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { Checkbox } from '@/components/ui/checkbox'
-import { format } from 'date-fns'
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header'
-import { IconCircleDashedLetterI, IconCircleDotted, IconCircleDottedLetterI, IconClockCancel, IconClockOff, IconClockPause, IconClockPlay, IconClockQuestion, IconClockStop, IconProgress } from '@tabler/icons-react'
-import { TaskStatusEnum, taskStatusSchema } from '@/types/task-status'
-import { Button } from '@/components/ui/button'
-import { Link } from '@tanstack/react-router'
 import { FriendMessageLog, friendMessageLogFieldMap } from '../data/schema'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Button } from '@/components/ui/button'
 
 // 好友私信任务列表表格列定义
 export const columns: ColumnDef<FriendMessageLog>[] = [
@@ -56,7 +52,21 @@ export const columns: ColumnDef<FriendMessageLog>[] = [
   {
     accessorKey: 'error',
     header: ({ column }) => <DataTableColumnHeader column={column} title={friendMessageLogFieldMap.error} />,
-    cell: ({ row }) => <div>{row.getValue('error')}</div>
+    cell: ({ row }) => {
+      const error = row.getValue('error') as string;
+      if (!error) return <div>--</div>;
+      
+      return (
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="xs">查看错误</Button>
+          </PopoverTrigger>
+          <PopoverContent className="max-w-md">
+            <pre className="text-xs whitespace-pre-wrap">{error}</pre>
+          </PopoverContent>
+        </Popover>
+      );
+    }
   },
   // 序号列
   {

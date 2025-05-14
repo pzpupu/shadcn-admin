@@ -1,6 +1,5 @@
 import {
   IconFolderUp,
-  IconFriends,
   IconMessage2Minus,
   IconMessage2Up,
   IconPasswordUser,
