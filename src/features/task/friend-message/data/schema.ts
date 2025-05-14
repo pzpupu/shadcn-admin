@@ -16,7 +16,7 @@ export type MessageSendModeEnum = z.infer<typeof messageSendModeEnum>;
  * 好友私信任务类型
  */
 export const httpMessageTaskSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   name: z.string(),
   description: z.string(),
   group: accountGroupSchema,

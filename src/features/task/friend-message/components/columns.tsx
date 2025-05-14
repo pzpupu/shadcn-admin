@@ -5,6 +5,8 @@ import { DataTableColumnHeader } from '@/components/data-table/data-table-column
 import { HttpMessageTask, httpMessageTaskFieldMap } from '../data/schema'
 import { IconCircleDashedLetterI, IconCircleDotted, IconCircleDottedLetterI, IconClockCancel, IconClockOff, IconClockPause, IconClockPlay, IconClockQuestion, IconClockStop, IconProgress } from '@tabler/icons-react'
 import { TaskStatusEnum, taskStatusSchema } from '@/types/task-status'
+import { Button } from '@/components/ui/button'
+import { Link } from '@tanstack/react-router'
 
 // 好友私信任务列表表格列定义
 export const columns: ColumnDef<HttpMessageTask>[] = [
@@ -138,4 +140,14 @@ export const columns: ColumnDef<HttpMessageTask>[] = [
       return <div className='text-center'>{updatedAt ? format(updatedAt as Date, 'yyyy-MM-dd HH:mm:ss') : '--'}</div>
     },
   },
+  // 操作列
+  {
+    accessorKey: 'actions',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="操作" />,
+    cell: ({ row }) => {
+      return <Link to={`/task/friend-message/$id/logs`} params={{ id: row.original.id }}>
+        <Button size="xs">任务日志</Button>
+      </Link>
+    }
+  }
 ] 

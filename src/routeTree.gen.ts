@@ -37,6 +37,7 @@ import { Route as AuthenticatedSettingsDisplayImport } from './routes/_authentic
 import { Route as AuthenticatedSettingsAppearanceImport } from './routes/_authenticated/settings/appearance'
 import { Route as AuthenticatedSettingsAccountImport } from './routes/_authenticated/settings/account'
 import { Route as AuthenticatedTiktokFriendIndexImport } from './routes/_authenticated/tiktok/friend/index'
+import { Route as AuthenticatedTaskFriendMessageTaskIdLogsImport } from './routes/_authenticated/task/friend-message/$taskId/logs'
 
 // Create Virtual Routes
 
@@ -266,6 +267,13 @@ const AuthenticatedTiktokFriendIndexRoute =
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
+const AuthenticatedTaskFriendMessageTaskIdLogsRoute =
+  AuthenticatedTaskFriendMessageTaskIdLogsImport.update({
+    id: '/task/friend-message/$taskId/logs',
+    path: '/task/friend-message/$taskId/logs',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -473,6 +481,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTaskFriendMessageIndexLazyImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/task/friend-message/$taskId/logs': {
+      id: '/_authenticated/task/friend-message/$taskId/logs'
+      path: '/task/friend-message/$taskId/logs'
+      fullPath: '/task/friend-message/$taskId/logs'
+      preLoaderRoute: typeof AuthenticatedTaskFriendMessageTaskIdLogsImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
   }
 }
 
@@ -515,6 +530,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedMaterialMessageTemplateIndexLazyRoute: typeof AuthenticatedMaterialMessageTemplateIndexLazyRoute
   AuthenticatedTaskFriendCollectIndexLazyRoute: typeof AuthenticatedTaskFriendCollectIndexLazyRoute
   AuthenticatedTaskFriendMessageIndexLazyRoute: typeof AuthenticatedTaskFriendMessageIndexLazyRoute
+  AuthenticatedTaskFriendMessageTaskIdLogsRoute: typeof AuthenticatedTaskFriendMessageTaskIdLogsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -536,6 +552,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedTaskFriendCollectIndexLazyRoute,
   AuthenticatedTaskFriendMessageIndexLazyRoute:
     AuthenticatedTaskFriendMessageIndexLazyRoute,
+  AuthenticatedTaskFriendMessageTaskIdLogsRoute:
+    AuthenticatedTaskFriendMessageTaskIdLogsRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -571,6 +589,7 @@ export interface FileRoutesByFullPath {
   '/material/message-template': typeof AuthenticatedMaterialMessageTemplateIndexLazyRoute
   '/task/friend-collect': typeof AuthenticatedTaskFriendCollectIndexLazyRoute
   '/task/friend-message': typeof AuthenticatedTaskFriendMessageIndexLazyRoute
+  '/task/friend-message/$taskId/logs': typeof AuthenticatedTaskFriendMessageTaskIdLogsRoute
 }
 
 export interface FileRoutesByTo {
@@ -601,6 +620,7 @@ export interface FileRoutesByTo {
   '/material/message-template': typeof AuthenticatedMaterialMessageTemplateIndexLazyRoute
   '/task/friend-collect': typeof AuthenticatedTaskFriendCollectIndexLazyRoute
   '/task/friend-message': typeof AuthenticatedTaskFriendMessageIndexLazyRoute
+  '/task/friend-message/$taskId/logs': typeof AuthenticatedTaskFriendMessageTaskIdLogsRoute
 }
 
 export interface FileRoutesById {
@@ -634,6 +654,7 @@ export interface FileRoutesById {
   '/_authenticated/material/message-template/': typeof AuthenticatedMaterialMessageTemplateIndexLazyRoute
   '/_authenticated/task/friend-collect/': typeof AuthenticatedTaskFriendCollectIndexLazyRoute
   '/_authenticated/task/friend-message/': typeof AuthenticatedTaskFriendMessageIndexLazyRoute
+  '/_authenticated/task/friend-message/$taskId/logs': typeof AuthenticatedTaskFriendMessageTaskIdLogsRoute
 }
 
 export interface FileRouteTypes {
@@ -668,6 +689,7 @@ export interface FileRouteTypes {
     | '/material/message-template'
     | '/task/friend-collect'
     | '/task/friend-message'
+    | '/task/friend-message/$taskId/logs'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/forgot-password'
@@ -697,6 +719,7 @@ export interface FileRouteTypes {
     | '/material/message-template'
     | '/task/friend-collect'
     | '/task/friend-message'
+    | '/task/friend-message/$taskId/logs'
   id:
     | '__root__'
     | '/_authenticated'
@@ -728,6 +751,7 @@ export interface FileRouteTypes {
     | '/_authenticated/material/message-template/'
     | '/_authenticated/task/friend-collect/'
     | '/_authenticated/task/friend-message/'
+    | '/_authenticated/task/friend-message/$taskId/logs'
   fileRoutesById: FileRoutesById
 }
 
@@ -797,7 +821,8 @@ export const routeTree = rootRoute
         "/_authenticated/account/list/",
         "/_authenticated/material/message-template/",
         "/_authenticated/task/friend-collect/",
-        "/_authenticated/task/friend-message/"
+        "/_authenticated/task/friend-message/",
+        "/_authenticated/task/friend-message/$taskId/logs"
       ]
     },
     "/_authenticated/settings": {
@@ -907,6 +932,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/task/friend-message/": {
       "filePath": "_authenticated/task/friend-message/index.lazy.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/task/friend-message/$taskId/logs": {
+      "filePath": "_authenticated/task/friend-message/$taskId/logs.tsx",
       "parent": "/_authenticated"
     }
   }
