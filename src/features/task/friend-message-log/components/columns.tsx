@@ -75,11 +75,11 @@ export const columns: ColumnDef<FriendMessageLog>[] = [
     cell: ({ row }) => <div>{row.getValue('sequence')}</div>
   },
   // 代理列
-  {
-    accessorKey: 'proxy',
-    header: ({ column }) => <DataTableColumnHeader column={column} title={friendMessageLogFieldMap.proxy} />,
-    cell: ({ row }) => <div>{row.getValue('proxy')}</div>
-  },
+  // {
+  //   accessorKey: 'proxy',
+  //   header: ({ column }) => <DataTableColumnHeader column={column} title={friendMessageLogFieldMap.proxy} />,
+  //   cell: ({ row }) => <div>{row.getValue('proxy')}</div>
+  // },
   // 重试次数列
   {
     accessorKey: 'retryCount',
