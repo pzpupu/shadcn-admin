@@ -7,6 +7,7 @@ import { IconCircleDashedLetterI, IconCircleDotted, IconCircleDottedLetterI, Ico
 import { TaskStatusEnum, taskStatusSchema } from '@/types/task-status'
 import { Button } from '@/components/ui/button'
 import { Link } from '@tanstack/react-router'
+import { DataTableRowActions } from './row-actions'
 
 // 好友私信任务列表表格列定义
 export const columns: ColumnDef<HttpMessageTask>[] = [
@@ -145,9 +146,7 @@ export const columns: ColumnDef<HttpMessageTask>[] = [
     accessorKey: 'actions',
     header: ({ column }) => <DataTableColumnHeader column={column} title="操作" />,
     cell: ({ row }) => {
-      return <Link to={`/task/friend-message/$taskId/logs`} params={{ taskId: row.original.id }}>
-        <Button size="xs">任务日志</Button>
-      </Link>
+      return  <DataTableRowActions row={row} />
     }
   }
 ] 
