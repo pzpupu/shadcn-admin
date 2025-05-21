@@ -28,6 +28,16 @@ class AccountGroupService extends BaseCrudService<AccountGroup> {
     const response = await axios.get<Option[]>(`${this.path}/options`, { params })
     return response.data
   }
+
+  /**
+   * 刷新账号组
+   * @param id 账号组ID
+   * @returns 刷新结果
+   */
+  async refreshAccountGroup(id: string): Promise<AccountGroup> {
+    const response = await axios.post(`${this.path}/${id}/refresh`)
+    return response.data
+  }
 }
 
 export const accountGroupService = new AccountGroupService()
