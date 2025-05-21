@@ -71,7 +71,7 @@ export const columns: ColumnDef<FriendCollectTask>[] = [
   // 总粉丝数列
   {
     accessorKey: 'totalFans',
-    header: ({ column }) => <DataTableColumnHeader column={column} title={friendCollectTaskFieldMap.totalFans} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={`${friendCollectTaskFieldMap.totalFans}(本次任务)`} />,
     cell: ({ row }) => <div>{row.getValue('totalFans')}</div>
   },
   // 任务状态列
