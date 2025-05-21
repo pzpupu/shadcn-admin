@@ -36,14 +36,14 @@ export const sidebarData: SidebarData = {
       title: '账号',
       items: [
         {
-          title: '账号列表',
-          url: '/account/list',
-          icon: IconUsers,
-        },
-        {   
           title: '账号分组',
           url: '/account/groups',
           icon: IconFolderUp,
+        },
+        {
+          title: '账号列表',
+          url: '/account/list',
+          icon: IconUsers,
         },
       ],
     },
