@@ -9,11 +9,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Logs, MoreHorizontal, StopCircle } from 'lucide-react'
-import { messageTemplateService } from '@/services/message-template-service'
 import { toast } from 'sonner'
 import { useQueryClient } from '@tanstack/react-query'
 import { HttpMessageTask } from '../data/schema'
 import { Link } from '@tanstack/react-router'
+import { httpMessageTaskService } from '@/services/http-message-service'
 
 interface DataTableRowActionsProps {
   row: Row<HttpMessageTask>
@@ -26,13 +26,15 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   // 停止任务操作
   const handleStop = async () => {
     try {
-      await messageTemplateService.stopTask(String(record.id))
+      await httpMessageTaskService.stopTask(String(record.id))
       toast.success('停止任务成功')
-      queryClient.invalidateQueries({ queryKey: [messageTemplateService.path] })
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('停止任务失败:', error)
-      toast.error('停止任务失败')
+      queryClient.invalidateQueries({ queryKey: [httpMessageTaskService.path] })
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message || '停止任务失败')
+      } else {
+        toast.error('停止任务失败')
+      }
     }
   }
 
@@ -53,10 +55,12 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             <span >任务日志</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleStop}>
-          <StopCircle className="mr-2 h-4 w-4" />
-          <span>停止任务</span>
-        </DropdownMenuItem>
+        {(record.status == 'PROCESSING' || record.status == 'INITIALIZED' || record.status == 'INITIALIZING') && (
+          <DropdownMenuItem onClick={handleStop}>
+            <StopCircle className="mr-2 h-4 w-4" />
+            <span>停止任务</span>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -29,16 +29,6 @@ class MessageTemplateService extends BaseCrudService<MessageTemplate> {
     return response.data
   }
 
-  /**
-   * 停止任务
-   * @param id 任务ID
-   */
-  async stopTask(id: string) {
-    const response = await axios.post(`${this.path}/${id}/stop`)
-    return response.data
-  }
-
-
 }
 
 export const messageTemplateService = new MessageTemplateService()

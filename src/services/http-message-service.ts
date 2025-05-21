@@ -41,6 +41,16 @@ class HttpMessageTaskService extends BaseCrudService<HttpMessageTask> {
         })
         return response.data
     }
+
+      /**
+   * 停止任务
+   * @param id 任务ID
+   */
+  async stopTask(id: string) {
+    const response = await axios.put(`${this.path}/${id}/stop`)
+    return response.data
+  }
+
 }
 
 export const httpMessageTaskService = new HttpMessageTaskService() 
