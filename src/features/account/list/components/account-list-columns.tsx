@@ -70,7 +70,7 @@ export const columns: ColumnDef<Account>[] = [
   {
     accessorKey: 'username',
     header: ({ column }) => <DataTableColumnHeader column={column} title={accountFieldMap.username} />,
-    cell: ({ row }) => <div>{row.getValue('username') || '--'}</div>,
+    cell: ({ row }) => <a className='underline' href={`https://www.tiktok.com/@${row.getValue('username')}`} target='_blank' rel='noreferrer'>{row.getValue('username') || '--'}</a>,
   },
   // 头像
   {
