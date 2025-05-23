@@ -35,27 +35,33 @@ export const columns: ColumnDef<Account>[] = [
     ),
   },
   // ID列
+  // {
+  //   accessorKey: 'id',
+  //   header: ({ column }) => <DataTableColumnHeader column={column} title={accountFieldMap.id} />,
+  //   // cell: ({ row }) => <div>{row.getValue('id')}</div>,
+  //   cell: ({ row }) => {
+  //     const original = row.original
+  //     return <div className='flex flex-col items-start gap-2'>
+  //       <Button variant="outline" size="xs" onClick={() => {
+  //         navigator.clipboard.writeText(original.uid)
+  //         toast.success('UID已复制到剪贴板', { duration: 2000 })
+  //       }}>
+  //         复制UID
+  //       </Button>
+  //       <Button variant="outline" size="xs" onClick={() => {
+  //         navigator.clipboard.writeText(original.secUid)
+  //         toast.success('SECUID已复制到剪贴板', { duration: 2000 })
+  //       }}>
+  //         复制SECUID
+  //       </Button>
+  //     </div>
+  //   },
+  // },
+  //UID
   {
-    accessorKey: 'id',
-    header: ({ column }) => <DataTableColumnHeader column={column} title={accountFieldMap.id} />,
-    // cell: ({ row }) => <div>{row.getValue('id')}</div>,
-    cell: ({ row }) => {
-      const original = row.original
-      return <div className='flex flex-col items-start gap-2'>
-        <Button variant="outline" size="xs" onClick={() => {
-          navigator.clipboard.writeText(original.uid)
-          toast.success('UID已复制到剪贴板', { duration: 2000 })
-        }}>
-          复制UID
-        </Button>
-        <Button variant="outline" size="xs" onClick={() => {
-          navigator.clipboard.writeText(original.secUid)
-          toast.success('SECUID已复制到剪贴板', { duration: 2000 })
-        }}>
-          复制SECUID
-        </Button>
-      </div>
-    },
+    accessorKey: 'uid',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={accountFieldMap.uid} />,
+    cell: ({ row }) => <div>{row.getValue('uid')}</div>,
   },
   // 分组列
   {

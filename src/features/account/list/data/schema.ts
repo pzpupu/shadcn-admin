@@ -41,7 +41,7 @@ export type Account = z.infer<typeof accountSchema>
 export const accountFieldMap: Record<keyof Account, string> = {
   id: "ID",
   group: "分组",
-  uid: "抖音UID",
+  uid: "UID",
   secUid: "安全UID",
   username: "用户名",
   nickname: "昵称",
