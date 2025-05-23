@@ -1,5 +1,5 @@
 import { Row } from '@tanstack/react-table'
-import { MoreHorizontal, Trash, RefreshCcw } from 'lucide-react'
+import { MoreHorizontal, Trash, RefreshCcw, Pencil } from 'lucide-react'
 import { useAccountListContext } from '../context/account-list-context'
 import { Account } from '../data/schema'
 import { accountService } from '@/services/account-services'
@@ -37,6 +37,12 @@ export function DataTableRowActions<TData>({
     setOpen('delete')
   }
 
+  // 更新账号
+  const onUpdate = () => {
+    setCurrent(account)
+    setOpen('update')
+  }
+
   const { mutate: refreshAccount, isPending: isRefreshing } = useMutation({
     mutationFn: () => accountService.refreshAccount(account.id),
     onSuccess: () => {
@@ -62,6 +68,10 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
+        <DropdownMenuItem onClick={onUpdate}>
+          <Pencil className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
+          更新
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => refreshAccount()} disabled={isRefreshing}>
           <RefreshCcw className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
           {isRefreshing ? '刷新中...' : '刷新'}

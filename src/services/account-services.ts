@@ -1,4 +1,4 @@
-import { Account, ImportAccountsInput } from "@/features/account/list/data/schema";
+import { Account, ImportAccountsInput, UpdateAccountForm } from "@/features/account/list/data/schema";
 import { BaseCrudService } from "./base-curd-service";
 import axios from "@/lib/axios";
 
@@ -57,6 +57,8 @@ export interface RefreshResult {
  * 继承自基础分页服务，提供账号组相关的操作
  */
 class AccountService extends BaseCrudService<Account> {
+
+
     constructor() {
       super('accounts')
     }
@@ -80,6 +82,16 @@ class AccountService extends BaseCrudService<Account> {
     async refreshAccount(id: string) {
       return await axios.post<RefreshResult>(`${this.path}/${id}/refresh`);
     }
+
+    /**
+     * 更新账号
+     * @param id 账号ID
+     * @param data 更新表单
+     * @returns 更新结果
+     */
+    async updateAccount(id: string, data: UpdateAccountForm) {
+      return await axios.put<unknown>(`${this.path}/${id}`, data);
+  }
 }
 
 export const accountService = new AccountService()
