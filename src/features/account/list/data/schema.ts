@@ -4,7 +4,9 @@ import { accountGroupSchema } from '../../groups/data/schema';
 export const AccountStatus = z.object({
   '-1': z.literal('未知'),
   '0': z.literal('正常'),
-  '1': z.literal('异常')
+  '1': z.literal('异常'),
+  '8': z.literal('登陆已过期'),
+  '200005': z.literal('登陆已过期'),
 });// 账号状态枚举
 export const AccountStatusEnum = AccountStatus.keyof();
 export type AccountStatusEnum = z.infer<typeof AccountStatusEnum>;
