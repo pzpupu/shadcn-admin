@@ -6,6 +6,7 @@ import { HttpMessageTask, httpMessageTaskFieldMap } from '../data/schema'
 import { IconCircleDashedLetterI, IconCircleDotted, IconCircleDottedLetterI, IconClockCancel, IconClockOff, IconClockPause, IconClockPlay, IconClockQuestion, IconClockStop, IconProgress } from '@tabler/icons-react'
 import { TaskStatusEnum, taskStatusSchema } from '@/types/task-status'
 import { DataTableRowActions } from './row-actions'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 // 好友私信任务列表表格列定义
 export const columns: ColumnDef<HttpMessageTask>[] = [
@@ -85,7 +86,7 @@ export const columns: ColumnDef<HttpMessageTask>[] = [
       let icon = null
       switch (status) {
         case 'CREATED':
-          icon = <IconCircleDotted  className='text-muted-foreground mr-2 h-4 w-4' />
+          icon = <IconCircleDotted className='text-muted-foreground mr-2 h-4 w-4' />
           break
         case 'INITIALIZING':
           icon = <IconCircleDottedLetterI className='text-muted-foreground mr-2 h-4 w-4' />
@@ -116,6 +117,24 @@ export const columns: ColumnDef<HttpMessageTask>[] = [
           break
       }
 
+      if (status === 'FAILED') {
+        return (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <div className='flex items-center'>
+                  {icon}
+                  <span>{statusValue.value}</span>
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{row.original.error}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )
+      }
+
       return (
         <div className='flex items-center'>
           {icon}
@@ -144,7 +163,7 @@ export const columns: ColumnDef<HttpMessageTask>[] = [
     accessorKey: 'actions',
     header: ({ column }) => <DataTableColumnHeader column={column} title="操作" />,
     cell: ({ row }) => {
-      return  <DataTableRowActions row={row} />
+      return <DataTableRowActions row={row} />
     }
   }
 ] 

@@ -29,7 +29,7 @@ export const httpMessageTaskSchema = z.object({
   updatedAt: z.string(),
   createdBy: z.string(),
   modifiedBy: z.string(),
-  
+  error: z.string(),
 })
 export type HttpMessageTask = z.infer<typeof httpMessageTaskSchema>;
 
@@ -48,6 +48,7 @@ export const httpMessageTaskFieldMap: Record<keyof HttpMessageTask, string> = {
   updatedAt: "更新时间",
   createdBy: "创建者",
   modifiedBy: "修改者",
+  error: "错误信息",
 }
 
 /**
