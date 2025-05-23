@@ -26,7 +26,7 @@ import { CreateHttpMessageTaskInput, createHttpMessageTaskSchema, messageSendMod
 import { Popover, PopoverTrigger } from '@radix-ui/react-popover'
 import { cn } from '@/lib/utils'
 import { accountGroupService } from '@/services/account-group-service'
-import { Check, ChevronsUpDown } from 'lucide-react'
+import { Check, ChevronsUpDown, Minus, Plus } from 'lucide-react'
 import { PopoverContent } from '@/components/ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { useState } from 'react'
@@ -277,15 +277,67 @@ export function FriendMessageTaskCreateDialog() {
               name='interval'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>发送消息间隔时间</FormLabel>
+                  <FormLabel>发送消息间隔时间（秒）</FormLabel>
                   <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="输入发送消息间隔时间"
-                      {...field}
-                      onChange={(e) => field.onChange(Number(e.target.value))}
-                      value={field.value === undefined ? '' : field.value}
-                    />
+                    <div className="relative flex items-center">
+                      <Input
+                        type="number"
+                        placeholder="输入发送消息间隔时间"
+                        min={1}
+                        max={30}
+                        className="pr-16 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value
+                          if (value === '') {
+                            field.onChange(undefined)
+                            return
+                          }
+                          const numValue = Math.min(30, Math.max(1, Number(value)))
+                          field.onChange(numValue)
+                        }}
+                        onBlur={(e) => {
+                          const value = e.target.value
+                          if (value === '' || Number(value) < 1) {
+                            field.onChange(1)
+                          }
+                        }}
+                        value={field.value === undefined ? '' : field.value}
+                        style={{
+                          MozAppearance: 'textfield'
+                        }}
+                      />
+                      <div className="absolute right-1 flex items-center gap-1">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="xs"
+                          className="h-7 w-6 p-0 rounded-sm"
+                          onClick={() => {
+                            const currentValue = field.value || 0
+                            const newValue = Math.max(1, currentValue - 1)
+                            field.onChange(newValue)
+                          }}
+                          disabled={field.value <= 1}
+                        >
+                          <Minus className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="xs"
+                          className="h-7 w-6 p-0 rounded-sm"
+                          onClick={() => {
+                            const currentValue = field.value || 0
+                            const newValue = Math.min(30, currentValue + 1)
+                            field.onChange(newValue)
+                          }}
+                          disabled={field.value >= 30}
+                        >
+                          <Plus className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -300,7 +352,65 @@ export function FriendMessageTaskCreateDialog() {
                 <FormItem>
                   <FormLabel>失败重试次数</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="输入失败重试次数" {...field} />
+                    <div className="relative flex items-center">
+                      <Input
+                        type="number"
+                        placeholder="输入失败重试次数"
+                        min={0}
+                        max={10}
+                        className="pr-16 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value
+                          if (value === '') {
+                            field.onChange(undefined)
+                            return
+                          }
+                          const numValue = Math.min(10, Math.max(0, Number(value)))
+                          field.onChange(numValue)
+                        }}
+                        onBlur={(e) => {
+                          const value = e.target.value
+                          if (value === '' || Number(value) < 0) {
+                            field.onChange(0)
+                          }
+                        }}
+                        value={field.value === undefined ? '' : field.value}
+                        style={{
+                          MozAppearance: 'textfield'
+                        }}
+                      />
+                      <div className="absolute right-1 flex items-center gap-1">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="xs"
+                          className="h-7 w-6 p-0 rounded-sm"
+                          onClick={() => {
+                            const currentValue = field.value || 0
+                            const newValue = Math.max(0, currentValue - 1)
+                            field.onChange(newValue)
+                          }}
+                          disabled={field.value <= 0}
+                        >
+                          <Minus className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="xs"
+                          className="h-7 w-6 p-0 rounded-sm"
+                          onClick={() => {
+                            const currentValue = field.value || 0
+                            const newValue = Math.min(10, currentValue + 1)
+                            field.onChange(newValue)
+                          }}
+                          disabled={field.value >= 10}
+                        >
+                          <Plus className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
