@@ -30,6 +30,8 @@ import { Check, ChevronsUpDown } from 'lucide-react'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Textarea } from '@/components/ui/textarea'
+import { AxiosError } from 'axios'
+import { ErrorResult } from '@/types/result'
 
 // 账号列表导入对话框组件实现
 export function AccountListImportDialog() {
@@ -62,10 +64,8 @@ export function AccountListImportDialog() {
       // 关闭对话框
       setOpen(null)
     },
-    onError: (error) => {
-      // eslint-disable-next-line no-console
-      console.error('导入账号失败:', error)
-      toast.error('导入账号失败')
+    onError: (error: AxiosError<ErrorResult<unknown>>) => {
+      toast.error(error.response?.data?.message || '导入账号失败')
     },
   })
 

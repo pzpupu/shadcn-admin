@@ -20,3 +20,18 @@ export interface Result<T> {
      */
     data?: T;
 }
+
+/**
+ * 错误响应结果类型
+ */
+export interface ErrorResult<T> {
+    /**
+     * 响应消息
+     */
+    message: string;
+
+    /**
+     * 响应数据
+     */
+    data?: T;
+}
