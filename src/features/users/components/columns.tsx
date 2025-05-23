@@ -84,15 +84,27 @@ export const columns: ColumnDef<User>[] = [
       switch (role) {
         case UserRoleEnum.Enum.ADMIN:
           return <div className='flex items-center gap-x-2'>
-           <IconShield size={16} className='text-muted-foreground' />
-          <span className='text-sm capitalize'>{UserRole.shape[role].value}</span>
-        </div>
+            <IconShield size={16} className='text-muted-foreground' />
+            <span className='text-sm capitalize'>{UserRole.shape[role].value}</span>
+          </div>
         default:
           return <div className='flex items-center gap-x-2'>
-          <IconCash size={16} className='text-muted-foreground' />
-         <span className='text-sm capitalize'>{UserRole.shape[role as keyof typeof UserRole.shape].value}</span>
-       </div>
+            <IconCash size={16} className='text-muted-foreground' />
+            <span className='text-sm capitalize'>{UserRole.shape[role as keyof typeof UserRole.shape].value}</span>
+          </div>
       }
+    },
+  },
+  {
+    accessorKey: 'quota',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title={userFieldMap.quota} />
+    ),
+    cell: ({ row }) => {
+      const { quota } = row.original
+      return <div className='flex items-center gap-x-2'>
+        <span className='text-sm capitalize'>{quota}</span>
+      </div>
     },
   },
   {
@@ -101,7 +113,7 @@ export const columns: ColumnDef<User>[] = [
       <DataTableColumnHeader column={column} title={userFieldMap.proxy} />
     ),
     cell: ({ row }) => {
-      const {proxy} = row.original
+      const { proxy } = row.original
       return <div className='flex items-center gap-x-2'>
         <span className='text-sm capitalize'>{proxy.proxyHost}:{proxy.proxyPort}</span>
       </div>
@@ -113,7 +125,7 @@ export const columns: ColumnDef<User>[] = [
       <DataTableColumnHeader column={column} title={userFieldMap.lastLoginAt} />
     ),
     cell: ({ row }) => {
-      const {lastLoginAt} = row.original
+      const { lastLoginAt } = row.original
       return <div className='flex items-center gap-x-2'>
         <span className='text-sm capitalize'>{lastLoginAt ? format(lastLoginAt, 'yyyy-MM-dd HH:mm:ss') : '--'}</span>
       </div>
@@ -125,7 +137,7 @@ export const columns: ColumnDef<User>[] = [
       <DataTableColumnHeader column={column} title={userFieldMap.createdAt} />
     ),
     cell: ({ row }) => {
-      const {createdAt} = row.original
+      const { createdAt } = row.original
       return <div className='flex items-center gap-x-2'>
         <span className='text-sm capitalize'>{format(createdAt, 'yyyy-MM-dd HH:mm:ss')}</span>
       </div>

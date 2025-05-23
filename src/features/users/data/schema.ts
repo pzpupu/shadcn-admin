@@ -31,6 +31,7 @@ export const userSchema = z.object({
   credentialsExpired: z.boolean(),
   role: UserRoleEnum,
   proxy: UserProxySchema,
+  quota: z.number(),
   lastLoginAt: z.coerce.date(),
   createdAt: z.coerce.date(),
 })
@@ -48,6 +49,7 @@ export const userFieldMap: Record<keyof User, string> = {
   credentialsExpired: "凭证过期",
   role: "角色",
   proxy: "代理",
+  quota: "账号配额",
   lastLoginAt: "最后登录时间",
   createdAt: "创建时间",
 }
@@ -59,6 +61,7 @@ export const createUserFormSchema = z.object({
   enabled: z.boolean(),
   role: UserRoleEnum,
   proxy: UserProxySchema,
+  quota: z.string(),
 })
 export type CreateUserForm = z.infer<typeof createUserFormSchema>
 

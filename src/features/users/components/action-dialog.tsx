@@ -44,6 +44,7 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
       ? {
         ...currentRow,
         role: currentRow?.role,
+        quota: currentRow?.quota,
         password: '[PROTECTION]',
       }
       : {
@@ -56,6 +57,7 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
           proxyUsername: '',
           proxyPassword: '',
         },
+        quota: 1500,
         password: '',
       },
   })
@@ -198,6 +200,27 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
                         value: key,
                       }))}
                     />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='quota'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      账号配额
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type='number'
+                        autoComplete='off'
+                        className='col-span-7 w-full'
+                        {...field}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
