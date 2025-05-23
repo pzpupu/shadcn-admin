@@ -6,8 +6,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { format } from 'date-fns'
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header'
-import { Button } from '@/components/ui/button'
-import { toast } from 'sonner'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { regions } from '@/types/region'
 

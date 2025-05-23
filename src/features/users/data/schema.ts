@@ -31,7 +31,7 @@ export const userSchema = z.object({
   credentialsExpired: z.boolean(),
   role: UserRoleEnum,
   proxy: UserProxySchema,
-  quota: z.number(),
+  quota: z.string(),
   lastLoginAt: z.coerce.date(),
   createdAt: z.coerce.date(),
 })

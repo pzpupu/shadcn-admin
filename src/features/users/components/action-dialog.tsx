@@ -57,7 +57,7 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
           proxyUsername: '',
           proxyPassword: '',
         },
-        quota: 1500,
+        quota: "1500",
         password: '',
       },
   })
