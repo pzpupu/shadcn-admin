@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { accountService } from "@/services/account-services"
 import { toast } from "sonner"
 import { AxiosError, AxiosResponse } from "axios"
-import { ErrorResult, Result } from "@/types/result"
+import { Result } from "@/types/result"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
@@ -37,7 +37,7 @@ export function AccountListBatchUpdateDialog() {
                 description: data.data?.desc || null,
             })
         },
-        onError: (error: AxiosError<ErrorResult<unknown>>) => {
+        onError: (error: AxiosError<Result<unknown>>) => {
             toast.error(error.response?.data?.message || '批量更新账号失败')
         }
     })

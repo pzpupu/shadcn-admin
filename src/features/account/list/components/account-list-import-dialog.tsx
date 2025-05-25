@@ -31,7 +31,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Textarea } from '@/components/ui/textarea'
 import { AxiosError } from 'axios'
-import { ErrorResult } from '@/types/result'
+import {Result} from "@/types/result";
 
 // 账号列表导入对话框组件实现
 export function AccountListImportDialog() {
@@ -64,7 +64,7 @@ export function AccountListImportDialog() {
       // 关闭对话框
       setOpen(null)
     },
-    onError: (error: AxiosError<ErrorResult<unknown>>) => {
+    onError: (error: AxiosError<Result<unknown>>) => {
       toast.error(error.response?.data?.message || '导入账号失败')
     },
   })
