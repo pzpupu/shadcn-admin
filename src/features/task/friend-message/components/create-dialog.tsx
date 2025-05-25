@@ -64,7 +64,7 @@ export function FriendMessageTaskCreateDialog() {
       description: undefined,
       groupId: undefined,
       templateId: undefined,
-      interval: 5,
+      interval: 1,
       retryCount: 3,
       regions: [],
       sendMode: messageSendModeEnum.Enum.SEND_TO_FRIENDS_WITHOUT_MESSAGE,
