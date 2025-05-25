@@ -1,4 +1,4 @@
-import { Upload } from 'lucide-react'
+import { RefreshCcw, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAccountListContext } from '../context/account-list-context'
 
@@ -8,6 +8,15 @@ export function AccountListPrimaryButtons() {
 
   return (
     <div className='flex items-center gap-2'>
+      <Button
+        variant='default'
+        size='sm'
+        onClick={() => setOpen('batchUpdate')}
+        className='h-8'
+      >
+        <RefreshCcw className='mr-2 h-4 w-4' />
+        批量更新账号
+      </Button>
       <Button 
         variant='default' 
         size='sm'

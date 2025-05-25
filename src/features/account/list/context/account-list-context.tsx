@@ -3,7 +3,7 @@ import useDialogState from '@/hooks/use-dialog-state'
 import { Account } from '../data/schema'
 
 // 对话框类型
-type AccountListDialogType = 'import' | 'delete' | 'update'
+type AccountListDialogType = 'import' | 'delete' | 'update' | 'batchUpdate'
 
 // 上下文类型
 interface AccountListContextType {

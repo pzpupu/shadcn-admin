@@ -1,6 +1,7 @@
 import { Account, ImportAccountsInput, UpdateAccountForm } from "@/features/account/list/data/schema";
 import { BaseCrudService } from "./base-curd-service";
 import axios from "@/lib/axios";
+import { Result } from "@/types/result";
 
 /**
  * 导入结果接口
@@ -91,7 +92,16 @@ class AccountService extends BaseCrudService<Account> {
      */
     async updateAccount(id: string, data: UpdateAccountForm) {
       return await axios.put<unknown>(`${this.path}/${id}`, data);
-  }
+    }
+
+    /**
+     * 批量更新账号
+     * @param data 更新表单
+     * @returns 更新结果
+     */
+    async batchUpdateAccounts(data: UpdateAccountForm) {
+      return await axios.put<Result<Array<number>>>(`${this.path}/batch`, data);
+    }
 }
 
 export const accountService = new AccountService()
