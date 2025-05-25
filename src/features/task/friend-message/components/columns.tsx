@@ -2,7 +2,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { format } from 'date-fns'
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header'
-import { HttpMessageTask, httpMessageTaskFieldMap } from '../data/schema'
+import { HttpMessageTask, httpMessageTaskFieldMap, messageSendModeSchema } from '../data/schema'
 import { IconCircleDashedLetterI, IconCircleDotted, IconCircleDottedLetterI, IconClockCancel, IconClockOff, IconClockPause, IconClockPlay, IconClockQuestion, IconClockStop, IconProgress } from '@tabler/icons-react'
 import { TaskStatusEnum, taskStatusSchema } from '@/types/task-status'
 import { DataTableRowActions } from './row-actions'
@@ -48,6 +48,15 @@ export const columns: ColumnDef<HttpMessageTask>[] = [
     accessorKey: 'description',
     header: ({ column }) => <DataTableColumnHeader column={column} title={httpMessageTaskFieldMap.description} />,
     cell: ({ row }) => <div>{row.getValue('description')}</div>
+  },
+  // 模板列
+  {
+    accessorKey: 'template',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={httpMessageTaskFieldMap.template} />,
+    cell: ({ row }) => {
+      const template = row.original.template
+      return <div>{template ? template.name : '--'}</div>
+    }
   },
   // 分组列
   {
@@ -141,6 +150,16 @@ export const columns: ColumnDef<HttpMessageTask>[] = [
           <span>{statusValue.value}</span>
         </div>
       )
+    }
+  },
+  // 发送模式列
+  {
+    accessorKey: 'sendMode',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={httpMessageTaskFieldMap.sendMode} />,
+    cell: ({ row }) => {
+      const sendMode = row.original.sendMode
+      const sendModeValue = messageSendModeSchema.shape[sendMode]
+      return <div>{sendModeValue.value}</div>
     }
   },
   // 创建时间列

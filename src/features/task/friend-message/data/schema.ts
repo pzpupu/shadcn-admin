@@ -1,4 +1,5 @@
 import { accountGroupSchema } from "@/features/account/groups/data/schema";
+import { messageTemplateSchema } from "@/features/material/message-template/data/schema";
 import { taskStatusEnum } from "@/types/task-status";
 import { z } from "zod";
 
@@ -6,8 +7,8 @@ import { z } from "zod";
  * 消息发送模式
  */
 export const messageSendModeSchema = z.object({
-  SEND_TO_FRIENDS_WITHOUT_MESSAGE: z.literal("发送给未私信过的好友"),
-  SEND_TO_ALL_FRIENDS: z.literal("发送给所有好友"),
+  SEND_TO_FRIENDS_WITHOUT_MESSAGE: z.literal("新增好友"),
+  SEND_TO_ALL_FRIENDS: z.literal("全部好友"),
 });
 export const messageSendModeEnum = messageSendModeSchema.keyof();
 export type MessageSendModeEnum = z.infer<typeof messageSendModeEnum>;
@@ -30,6 +31,7 @@ export const httpMessageTaskSchema = z.object({
   createdBy: z.string(),
   modifiedBy: z.string(),
   error: z.string(),
+  template: messageTemplateSchema,
 })
 export type HttpMessageTask = z.infer<typeof httpMessageTaskSchema>;
 
@@ -49,6 +51,7 @@ export const httpMessageTaskFieldMap: Record<keyof HttpMessageTask, string> = {
   createdBy: "创建者",
   modifiedBy: "修改者",
   error: "错误信息",
+  template: "模板",
 }
 
 /**
