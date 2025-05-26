@@ -26,7 +26,6 @@ export function AccountGroupsDeleteDialog() {
       queryClient.invalidateQueries({ queryKey: [accountGroupService.path] })
     },
     onError: (error: AxiosError<Result<any>>) => {
-      console.log(error)
       toast.error('删除账号组失败', {
         description: error.response?.data.message
       })
@@ -60,7 +59,7 @@ export function AccountGroupsDeleteDialog() {
           <AlertDialogDescription>
             您确定要删除账号组 <span className="font-bold">{currentGroup.name}</span> 吗？
             <br />
-            删除该组将同时删除该组下的所有账户。
+            删除该组将同时删除与该组关联的数据(账号、任务等)。
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
