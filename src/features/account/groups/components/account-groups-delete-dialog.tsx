@@ -12,6 +12,8 @@ import { useAccountGroupsContext } from '../context/account-groups-context'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { accountGroupService } from '@/services/account-group-service'
 import { toast } from 'sonner'
+import { Result } from '@/types/result'
+import { AxiosError } from 'axios'
 
 export function AccountGroupsDeleteDialog() {
   const { open, setOpen, currentGroup } = useAccountGroupsContext()
@@ -23,10 +25,11 @@ export function AccountGroupsDeleteDialog() {
       toast.success('账号组删除成功')
       queryClient.invalidateQueries({ queryKey: [accountGroupService.path] })
     },
-    onError: (error) => {
-      // eslint-disable-next-line no-console
-      console.error('删除账号组失败:', error)
-      toast.error('删除账号组失败')
+    onError: (error: AxiosError<Result<any>>) => {
+      console.log(error)
+      toast.error('删除账号组失败', {
+        description: error.response?.data.message
+      })
     },
   })
 
@@ -57,7 +60,7 @@ export function AccountGroupsDeleteDialog() {
           <AlertDialogDescription>
             您确定要删除账号组 <span className="font-bold">{currentGroup.name}</span> 吗？
             <br />
-            此操作不可逆，该组的所有账户将失去其关联。
+            删除该组将同时删除该组下的所有账户。
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -67,7 +70,7 @@ export function AccountGroupsDeleteDialog() {
           <AlertDialogAction
             onClick={onConfirm}
             disabled={deleteMutation.isPending}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 text-white"
           >
             {deleteMutation.isPending ? '删除中...' : '删除'}
           </AlertDialogAction>
