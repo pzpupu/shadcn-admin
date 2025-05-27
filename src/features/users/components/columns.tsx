@@ -85,12 +85,12 @@ export const columns: ColumnDef<User>[] = [
         case UserRoleEnum.Enum.ADMIN:
           return <div className='flex items-center gap-x-2'>
             <IconShield size={16} className='text-muted-foreground' />
-            <span className='text-sm capitalize'>{UserRole.shape[role].value}</span>
+            <span className='text-sm'>{UserRole.shape[role].value}</span>
           </div>
         default:
           return <div className='flex items-center gap-x-2'>
             <IconCash size={16} className='text-muted-foreground' />
-            <span className='text-sm capitalize'>{UserRole.shape[role as keyof typeof UserRole.shape].value}</span>
+            <span className='text-sm'>{UserRole.shape[role as keyof typeof UserRole.shape].value}</span>
           </div>
       }
     },
@@ -103,7 +103,7 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       const { quota } = row.original
       return <div className='flex items-center gap-x-2'>
-        <span className='text-sm capitalize'>{quota}</span>
+        <span className='text-sm'>{quota}</span>
       </div>
     },
   },
@@ -115,7 +115,7 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       const { proxy } = row.original
       return <div className='flex items-center gap-x-2'>
-        <span className='text-sm capitalize'>{proxy.proxyHost}:{proxy.proxyPort}</span>
+        <span className='text-sm'>{proxy.proxyHost}:{proxy.proxyPort}</span>
       </div>
     },
   },
@@ -127,7 +127,7 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       const { lastLoginAt } = row.original
       return <div className='flex items-center gap-x-2'>
-        <span className='text-sm capitalize'>{lastLoginAt ? format(lastLoginAt, 'yyyy-MM-dd HH:mm:ss') : '--'}</span>
+        <span className='text-sm'>{lastLoginAt ? format(lastLoginAt, 'yyyy-MM-dd HH:mm:ss') : '--'}</span>
       </div>
     },
   },
@@ -139,7 +139,7 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       const { createdAt } = row.original
       return <div className='flex items-center gap-x-2'>
-        <span className='text-sm capitalize'>{format(createdAt, 'yyyy-MM-dd HH:mm:ss')}</span>
+        <span className='text-sm'>{format(createdAt, 'yyyy-MM-dd HH:mm:ss')}</span>
       </div>
     },
   },
