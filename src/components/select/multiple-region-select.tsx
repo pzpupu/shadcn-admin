@@ -113,7 +113,11 @@ export default function MultipleRegionSelect({ onValueChange, defaultValue }: { 
                             </Button>
                         )}
                     </div>
-                    <CommandList>
+                    <CommandList
+                        // 修复鼠标不能滚动问题
+                        onWheel={(e) => {
+                            e.stopPropagation();
+                        }}>
                         <CommandEmpty>没有找到匹配的地区</CommandEmpty>
                         {filteredRegions.map((group, index) => (
                             <CommandGroup key={index} heading={group.label}>
