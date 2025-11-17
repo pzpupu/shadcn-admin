@@ -41,22 +41,27 @@ export default function MultipleRegionSelect({ onValueChange, defaultValue }: { 
 
     // 处理选择/取消选择
     const toggleSelection = (value: string) => {
-        setSelectedValues((current) => (current.includes(value) ? current.filter((v) => v !== value) : [...current, value]))
-        onValueChange(selectedValues)
+        const newValues = selectedValues.includes(value) 
+            ? selectedValues.filter((v) => v !== value) 
+            : [...selectedValues, value]
+        setSelectedValues(newValues)
+        onValueChange(newValues)
     }
 
     // 移除选中项
     const removeItem = (value: string, e: React.MouseEvent) => {
         e.preventDefault()
         e.stopPropagation()
-        setSelectedValues((current) => current.filter((v) => v !== value))
-        onValueChange(selectedValues)
+        const newValues = selectedValues.filter((v) => v !== value)
+        setSelectedValues(newValues)
+        onValueChange(newValues)
     }
 
     // 清除所有选中项
     const clearAll = () => {
-        setSelectedValues([])
-        onValueChange(selectedValues)
+        const newValues: string[] = []
+        setSelectedValues(newValues)
+        onValueChange(newValues)
     }
 
     return (
