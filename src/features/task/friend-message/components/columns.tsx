@@ -7,6 +7,7 @@ import { IconCircleDashedLetterI, IconCircleDotted, IconCircleDottedLetterI, Ico
 import { TaskStatusEnum, taskStatusSchema } from '@/types/task-status'
 import { DataTableRowActions } from './row-actions'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import {regions} from "@/types/region.ts";
 
 // 好友私信任务列表表格列定义
 export const columns: ColumnDef<HttpMessageTask>[] = [
@@ -160,6 +161,15 @@ export const columns: ColumnDef<HttpMessageTask>[] = [
       const sendMode = row.original.sendMode
       const sendModeValue = messageSendModeSchema.shape[sendMode]
       return <div>{sendModeValue.value}</div>
+    }
+  },
+  // 地区
+  {
+    accessorKey: 'regions',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={httpMessageTaskFieldMap.regions} />,
+    cell: ({ row }) => {
+      const regions1 = row.original.regions
+      return <div>{regions1?.map((region) => `${region}|${regions[region as keyof typeof regions]}`).join(',')}</div>
     }
   },
   // 创建时间列

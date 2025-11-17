@@ -18,6 +18,7 @@ export type MessageSendModeEnum = z.infer<typeof messageSendModeEnum>;
  */
 export const httpMessageTaskSchema = z.object({
   id: z.string(),
+  regions: z.array(z.string()),
   name: z.string(),
   description: z.string(),
   group: accountGroupSchema,
@@ -46,6 +47,7 @@ export const httpMessageTaskFieldMap: Record<keyof HttpMessageTask, string> = {
   failed: "失败数",
   status: "任务状态",
   sendMode: "发送模式",
+  regions: "地区",
   createdAt: "创建时间",
   updatedAt: "更新时间",
   createdBy: "创建者",
