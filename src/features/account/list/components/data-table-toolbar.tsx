@@ -1,15 +1,16 @@
-import { X, RefreshCcw, Trash } from 'lucide-react'
+import { X, RefreshCcw, Trash, ArrowRightLeft } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { DataTableViewOptions } from './data-table-view-options'
-import { accountFieldMap, AccountStatus } from '../data/schema'
+import { accountFieldMap, AccountStatus, Account } from '../data/schema'
 import { DataTableToolbarProps } from '@/components/data-table'
 import { DataTableFacetedFilter } from '@/components/data-table/data-table-faceted-filter'
 import { DataTableGroupFilter } from './data-table-group-filter'
 import { useQueryClient } from '@tanstack/react-query'
 import { accountService } from '@/services/account-services'
 import { useState } from 'react'
+import { useAccountListContext } from '../context/account-list-context'
 
 // 表格工具栏组件实现
 export function DataTableToolbar<TData>({
@@ -19,6 +20,7 @@ export function DataTableToolbar<TData>({
   const selectedAccounts = table.getFilteredSelectedRowModel().flatRows.map((row) => row.original)
   const queryClient = useQueryClient()
   const [isRefreshing, setIsRefreshing] = useState(false)
+  const { setOpen, setSelectedAccounts } = useAccountListContext()
   const refresh = () => {
     setIsRefreshing(true)
     queryClient.invalidateQueries({ queryKey: [accountService.path] })
@@ -60,6 +62,18 @@ export function DataTableToolbar<TData>({
         )}
       </div>
       <div className='flex items-center gap-2'>
+        <Button
+          variant='outline'
+          size='sm'
+          disabled={selectedAccounts.length === 0}
+          onClick={() => {
+            setSelectedAccounts(selectedAccounts as Account[])
+            setOpen('batchMove')
+          }}
+          className='h-8'
+        >
+          <ArrowRightLeft className='h-4 w-4' />
+        </Button>
         <Button
           variant='outline'
           size='sm'

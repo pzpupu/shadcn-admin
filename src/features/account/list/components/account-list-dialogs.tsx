@@ -3,6 +3,7 @@ import { AccountListImportDialog } from './account-list-import-dialog'
 import { useAccountListContext } from '../context/account-list-context'
 import { AccountListUpdateDialog } from './account-list-update-dialog'
 import { AccountListBatchUpdateDialog } from './account-list-batch-update-dialog'
+import { AccountListBatchMoveDialog } from './account-list-batch-move-dialog'
 
 // 账号列表对话框组件实现
 export function AccountListDialogs() {
@@ -13,6 +14,7 @@ export function AccountListDialogs() {
       {open === 'import' && <AccountListImportDialog />}
       {open === 'update' && <AccountListUpdateDialog />}
       {open === 'batchUpdate' && <AccountListBatchUpdateDialog />}
+      {open === 'batchMove' && <AccountListBatchMoveDialog />}
     </>
   )
 } 

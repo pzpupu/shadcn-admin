@@ -3,7 +3,7 @@ import useDialogState from '@/hooks/use-dialog-state'
 import { Account } from '../data/schema'
 
 // 对话框类型
-type AccountListDialogType = 'import' | 'delete' | 'update' | 'batchUpdate'
+type AccountListDialogType = 'import' | 'delete' | 'update' | 'batchUpdate' | 'batchMove'
 
 // 上下文类型
 interface AccountListContextType {
@@ -11,6 +11,8 @@ interface AccountListContextType {
   setOpen: (str: AccountListDialogType | null) => void
   current: Account | null
   setCurrent: React.Dispatch<React.SetStateAction<Account | null>>
+  selectedAccounts: Account[]
+  setSelectedAccounts: React.Dispatch<React.SetStateAction<Account[]>>
 }
 
 // 创建上下文
@@ -25,6 +27,7 @@ interface Props {
 export default function AccountListProvider({ children }: Props) {
   const [open, setOpen] = useDialogState<AccountListDialogType>(null)
   const [current, setCurrent] = useState<Account | null>(null)
+  const [selectedAccounts, setSelectedAccounts] = useState<Account[]>([])
 
   return (
     <AccountListContext.Provider 
@@ -32,7 +35,9 @@ export default function AccountListProvider({ children }: Props) {
         open, 
         setOpen, 
         current,
-        setCurrent
+        setCurrent,
+        selectedAccounts,
+        setSelectedAccounts
       }}
     >
       {children}

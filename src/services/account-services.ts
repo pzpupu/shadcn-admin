@@ -102,6 +102,19 @@ class AccountService extends BaseCrudService<Account> {
     async batchUpdateAccounts(data: UpdateAccountForm) {
       return await axios.put<Result<Array<number>>>(`${this.path}/batch`, data);
     }
+
+    /**
+     * 批量移动账号到分组
+     * @param accountIds 账号ID列表
+     * @param groupId 目标分组ID
+     * @returns 更新结果
+     */
+    async batchMoveToGroup(accountIds: string[], groupId: string) {
+      return await axios.put<Result<number>>(`${this.path}/batch/move`, {
+        accountIds,
+        groupId
+      });
+    }
 }
 
 export const accountService = new AccountService()
@@ -145,17 +158,6 @@ export const accountService = new AccountService()
 //     await axios.delete(`${ACCOUNT_URL}/batch`, { data: accountIds })
 //   },
 
-//   /**
-//    * 更新账号分组
-//    * @param accountIds 账号ID列表
-//    * @param groupId 目标分组ID
-//    */
-//   updateAccountGroup: async (accountIds: number[], groupId: number) => {
-//     await axios.put(`${ACCOUNT_URL}/update-group`, 
-//       { accountIds, groupId }, 
-//       { params: { groupId } }
-//     )
-//   },
 
 //   /**
 //    * 导入账号
