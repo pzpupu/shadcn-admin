@@ -1,7 +1,8 @@
+import { z } from "zod";
+import { taskStatusEnum } from "@/types/task-status";
 import { accountGroupSchema } from "@/features/account/groups/data/schema";
 import { messageTemplateSchema } from "@/features/material/message-template/data/schema";
-import { taskStatusEnum } from "@/types/task-status";
-import { z } from "zod";
+
 
 /**
  * 消息发送模式
@@ -60,17 +61,23 @@ export const httpMessageTaskFieldMap: Record<keyof HttpMessageTask, string> = {
  * 创建好友私信任务表单验证
  */
 export const createHttpMessageTaskSchema = z.object({
-  name: z.string({ required_error: "请输入任务名称" }).min(1, "任务名称不能为空").max(100, "任务名称最多100个字符"),
-  description: z.string().max(500, "任务描述最多500个字符").optional(),
-  groupId: z.string({ required_error: "请选择账号组" }),
-  templateId: z.string({ required_error: "请选择模板" }),
-  interval: z.number({ required_error: "请输入间隔" }).max(30, "间隔不能大于30"),
-  retryCount: z.number({ required_error: "请输入重试次数" }),
+  name: z
+    .string({ required_error: '请输入任务名称' })
+    .min(1, '任务名称不能为空')
+    .max(100, '任务名称最多100个字符'),
+  description: z.string().max(500, '任务描述最多500个字符').optional(),
+  groupId: z.string({ required_error: '请选择账号组' }),
+  templateId: z.string({ required_error: '请选择模板' }),
+  interval: z
+    .number({ required_error: '请输入间隔' })
+    .max(30, '间隔不能大于30'),
+  retryCount: z.number({ required_error: '请输入重试次数' }),
+  limitCount: z.number(),
   regions: z.array(z.string()).default([]).optional(),
   sendMode: messageSendModeEnum,
-});
+})
 
 /**
  * 创建好友私信任务表单类型
  */
-export type CreateHttpMessageTaskInput = z.infer<typeof createHttpMessageTaskSchema>; 
+export type CreateHttpMessageTaskInput = z.infer<typeof createHttpMessageTaskSchema>;

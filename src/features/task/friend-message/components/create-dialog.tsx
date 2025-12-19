@@ -1,39 +1,26 @@
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'sonner'
-import { httpMessageTaskService } from '@/services/http-message-service'
-import { CreateHttpMessageTaskInput, createHttpMessageTaskSchema, messageSendModeEnum, messageSendModeSchema } from '../data/schema'
-import { Popover, PopoverTrigger } from '@radix-ui/react-popover'
-import { cn } from '@/lib/utils'
-import { accountGroupService } from '@/services/account-group-service'
-import { Check, ChevronsUpDown, Minus, Plus } from 'lucide-react'
-import { PopoverContent } from '@/components/ui/popover'
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
-import { useState } from 'react'
-import { messageTemplateService } from '@/services/message-template-service'
-import MultipleRegionSelect from '@/components/select/multiple-region-select'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import {useDataTableContext} from "@/components/data-table/use-data-table-context.tsx";
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Popover, PopoverTrigger } from '@radix-ui/react-popover';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { accountGroupService } from '@/services/account-group-service';
+import { httpMessageTaskService } from '@/services/http-message-service';
+import { messageTemplateService } from '@/services/message-template-service';
+import { Check, ChevronsUpDown, Minus, Plus } from 'lucide-react';
+import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { PopoverContent } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useDataTableContext } from "@/components/data-table/use-data-table-context.tsx";
+import MultipleRegionSelect from '@/components/select/multiple-region-select';
+import { CreateHttpMessageTaskInput, createHttpMessageTaskSchema, messageSendModeEnum, messageSendModeSchema } from '../data/schema';
+
 
 export function FriendMessageTaskCreateDialog() {
   const { open, setOpen } = useDataTableContext()
@@ -66,6 +53,7 @@ export function FriendMessageTaskCreateDialog() {
       templateId: undefined,
       interval: 1,
       retryCount: 3,
+      limitCount: undefined,
       regions: [],
       sendMode: messageSendModeEnum.Enum.SEND_TO_FRIENDS_WITHOUT_MESSAGE,
     },
@@ -456,6 +444,76 @@ export function FriendMessageTaskCreateDialog() {
                         ))}
                       </SelectContent>
                     </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* 限制次数 */}
+            <FormField
+              control={form.control}
+              name='limitCount'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>限制发送数量</FormLabel>
+                  <FormControl>
+                    <div className="relative flex items-center">
+                      <Input
+                        type="number"
+                        placeholder="输入限制次数"
+                        className="pr-16 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value
+                          if (value === '') {
+                            field.onChange(undefined)
+                            return
+                          }
+                          const numValue = Math.min(10, Math.max(0, Number(value)))
+                          field.onChange(numValue)
+                        }}
+                        onBlur={(e) => {
+                          const value = e.target.value
+                          if (value === '' || Number(value) < 0) {
+                            field.onChange(0)
+                          }
+                        }}
+                        value={field.value === undefined ? '' : field.value}
+                        style={{
+                          MozAppearance: 'textfield'
+                        }}
+                      />
+                      <div className="absolute right-1 flex items-center gap-1">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="xs"
+                          className="h-7 w-6 p-0 rounded-sm"
+                          onClick={() => {
+                            const currentValue = field.value || 0
+                            const newValue = Math.max(0, currentValue - 1)
+                            field.onChange(newValue)
+                          }}
+                          disabled={field.value <= 0}
+                        >
+                          <Minus className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="xs"
+                          className="h-7 w-6 p-0 rounded-sm"
+                          onClick={() => {
+                            const currentValue = field.value || 0
+                            const newValue = Math.min(10, currentValue + 1)
+                            field.onChange(newValue)
+                          }}
+                          disabled={field.value >= 10}
+                        >
+                          <Plus className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
