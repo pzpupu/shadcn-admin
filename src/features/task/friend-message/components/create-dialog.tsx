@@ -455,7 +455,7 @@ export function FriendMessageTaskCreateDialog() {
               name='limitCount'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>限制发送数量</FormLabel>
+                  <FormLabel>单账号最大发送数量</FormLabel>
                   <FormControl>
                     <div className="relative flex items-center">
                       <Input
