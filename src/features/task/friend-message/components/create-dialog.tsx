@@ -469,7 +469,7 @@ export function FriendMessageTaskCreateDialog() {
                             field.onChange(undefined)
                             return
                           }
-                          const numValue = Math.min(10, Math.max(0, Number(value)))
+                          const numValue = Math.min(9999999, Math.max(0, Number(value)))
                           field.onChange(numValue)
                         }}
                         onBlur={(e) => {
@@ -505,10 +505,10 @@ export function FriendMessageTaskCreateDialog() {
                           className="h-7 w-6 p-0 rounded-sm"
                           onClick={() => {
                             const currentValue = field.value || 0
-                            const newValue = Math.min(10, currentValue + 1)
+                            const newValue = Math.min(9999999, currentValue + 1)
                             field.onChange(newValue)
                           }}
-                          disabled={field.value >= 10}
+                          disabled={field.value >= 9999999}
                         >
                           <Plus className="h-3 w-3" />
                         </Button>
